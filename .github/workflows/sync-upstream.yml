@@ -1,0 +1,87 @@
+name: Auto-Sync Vocabulary & Updates from Apps
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # Alle 4 Stunden automatisch prüfen
+  workflow_dispatch:        # Manuell anstoßbar
+  repository_dispatch:     # Per API / Webhook anstoßbar
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    name: Sync Latest Data from VokabelStar, VokabelMeister & BFW
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout vokabel-web
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Download Latest BFW Catalog & Vocabularies
+        run: |
+          python - << 'EOF'
+          import urllib.request
+          import json
+          import os
+
+          headers = {'User-Agent': 'Mozilla/5.0'}
+
+          # 1. BFW Catalog
+          bfw_url = "https://raw.githubusercontent.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/main/www/bfw_catalog.json"
+          try:
+              req = urllib.request.Request(bfw_url, headers=headers)
+              with urllib.request.urlopen(req) as resp:
+                  data = resp.read()
+                  catalog = json.loads(data.decode('utf-8'))
+                  with open("bfw_catalog.json", "wb") as f:
+                      f.write(data)
+                  with open("bfw_catalog.js", "w", encoding="utf-8") as f:
+                      f.write("window.BFW_CATALOG = " + json.dumps(catalog, ensure_ascii=False) + ";")
+                  print(f"Synced BFW Catalog: {len(catalog)} topics.")
+          except Exception as e:
+              print(f"Error syncing BFW: {e}")
+
+          # 2. VokabelMeister Defaults
+          meister_url = "https://raw.githubusercontent.com/Lauju1909/VokabelMeister-Android/main/www/vokabeln.json"
+          try:
+              req = urllib.request.Request(meister_url, headers=headers)
+              with urllib.request.urlopen(req) as resp:
+                  data = resp.read()
+                  vocabs = json.loads(data.decode('utf-8'))
+                  with open("vokabeln.json", "wb") as f:
+                      f.write(data)
+                  with open("vokabelmeister_data.js", "w", encoding="utf-8") as f:
+                      f.write("window.VOKABELMEISTER_DEFAULT_VOCABS = " + json.dumps(vocabs, ensure_ascii=False) + ";")
+                  print(f"Synced VokabelMeister: {len(vocabs)} vocabs.")
+          except Exception as e:
+              print(f"Error syncing VokabelMeister: {e}")
+
+          # 3. Update version.json
+          import datetime
+          version_info = {
+              "version": "1.2.0",
+              "lastSync": datetime.datetime.utcnow().isoformat() + "Z",
+              "appName": "Vokabel-Portal Web",
+              "author": "Lauri & Team"
+          }
+          with open("version.json", "w", encoding="utf-8") as f:
+              json.dump(version_info, f, indent=2)
+          EOF
+
+      - name: Commit & Push Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add bfw_catalog.js bfw_catalog.json vokabelmeister_data.js vokabeln.json version.json
+          if ! git diff --staged --quiet; then
+            git commit -m "chore(sync): auto-update vocabulary & data from app repositories"
+            git push origin main
+          else
+            echo "No changes found. Everything is already up to date!"
+          fi

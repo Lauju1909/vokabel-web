@@ -390,43 +390,94 @@ class DataManager {
 // ==========================================
 class AutoUpdateSystem {
   static BFW_RAW_URL = "https://raw.githubusercontent.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/main/www/bfw_catalog.json";
+  static MEISTER_RAW_URL = "https://raw.githubusercontent.com/Lauju1909/VokabelMeister-Android/main/www/vokabeln.json";
   static VERSION_URL = "version.json";
+
+  static REPOS = [
+    { name: "VokabelStar", repo: "Lauju1909/VokabelStar-Android" },
+    { name: "VokabelMeister", repo: "Lauju1909/VokabelMeister-Android" },
+    { name: "BFW Vokabel-Verwaltung", repo: "Lauju1909/BFW-Wirtschaftsenglisch-Android" }
+  ];
 
   static async checkForUpdates() {
     const statusEl = document.getElementById("update-status-text");
     const banner = document.getElementById("update-banner");
 
     try {
-      if (statusEl) statusEl.textContent = "Prüfe auf neue Vokabeln & Updates auf GitHub...";
+      if (statusEl) statusEl.textContent = "Prüfe auf Updates von VokabelStar, VokabelMeister & BFW...";
       const cacheBuster = "?t=" + Date.now();
-      const resp = await fetch(this.BFW_RAW_URL + cacheBuster, { cache: "no-store" });
-      
-      if (resp.ok) {
-        const onlineCatalog = await resp.json();
-        if (Array.isArray(onlineCatalog) && onlineCatalog.length > 0) {
-          const currentCount = (window.BFW_CATALOG || []).reduce((acc, cat) => acc + (cat.words?.length || 0), 0);
-          const onlineCount = onlineCatalog.reduce((acc, cat) => acc + (cat.words?.length || 0), 0);
 
-          if (onlineCount > currentCount || onlineCatalog.length > (window.BFW_CATALOG || []).length) {
-            window.BFW_CATALOG = onlineCatalog;
-            localStorage.setItem(DataManager.KEY_BFW_UPDATE, JSON.stringify(onlineCatalog));
-            if (statusEl) {
-              statusEl.textContent = `🎉 Neue Vokabeln gefunden! ${onlineCount} Vokabeln aktualisiert.`;
-            }
-            if (banner) banner.style.display = "flex";
-            portalApp.renderTopics();
-            return;
+      let changesDetected = false;
+      let newVocabsCount = 0;
+      let appVersions = [];
+
+      // 1. Check Releases of the apps on GitHub
+      for (const item of this.REPOS) {
+        try {
+          const relResp = await fetch(`https://api.github.com/repos/${item.repo}/releases/latest`, { cache: "no-store" });
+          if (relResp.ok) {
+            const relData = await relResp.json();
+            const tag = relData.tag_name || "v1.0.0";
+            appVersions.push(`${item.name} (${tag})`);
           }
+        } catch (e) {
+          console.warn(`Could not check release for ${item.name}:`, e);
         }
       }
 
-      if (statusEl) {
-        statusEl.textContent = "✅ Alle Vokabellisten & App-Daten sind auf dem neuesten Stand!";
+      // 2. Fetch Latest BFW Catalog
+      try {
+        const resp = await fetch(this.BFW_RAW_URL + cacheBuster, { cache: "no-store" });
+        if (resp.ok) {
+          const onlineCatalog = await resp.json();
+          if (Array.isArray(onlineCatalog) && onlineCatalog.length > 0) {
+            const currentCount = (window.BFW_CATALOG || []).reduce((acc, cat) => acc + (cat.words?.length || 0), 0);
+            const onlineCount = onlineCatalog.reduce((acc, cat) => acc + (cat.words?.length || 0), 0);
+
+            if (onlineCount !== currentCount || onlineCatalog.length !== (window.BFW_CATALOG || []).length) {
+              window.BFW_CATALOG = onlineCatalog;
+              localStorage.setItem(DataManager.KEY_BFW_UPDATE, JSON.stringify(onlineCatalog));
+              changesDetected = true;
+              newVocabsCount = onlineCount;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("BFW raw fetch error:", e);
       }
+
+      // 3. Fetch Latest VokabelMeister Vocabularies
+      try {
+        const meisterResp = await fetch(this.MEISTER_RAW_URL + cacheBuster, { cache: "no-store" });
+        if (meisterResp.ok) {
+          const onlineMeister = await meisterResp.json();
+          if (Array.isArray(onlineMeister) && onlineMeister.length > 0) {
+            window.VOKABELMEISTER_DEFAULT_VOCABS = onlineMeister;
+            localStorage.setItem("vokabelportal_meister_cache", JSON.stringify(onlineMeister));
+          }
+        }
+      } catch (e) {
+        console.warn("Meister raw fetch error:", e);
+      }
+
+      // 4. Update UI Status Message
+      if (statusEl) {
+        const verString = appVersions.length > 0 ? " • " + appVersions.join(" | ") : "";
+        if (changesDetected) {
+          sounds.correct();
+          statusEl.textContent = `🎉 Live-Update geladen! ${newVocabsCount} Vokabeln synchronisiert${verString}`;
+          portalApp.renderTopics();
+          portalApp.announceScreenreader("Neue Vokabeln und App-Updates wurden automatisch von GitHub geladen!", true);
+        } else {
+          statusEl.textContent = `✅ Live synchronisiert mit GitHub${verString}`;
+        }
+      }
+      if (banner) banner.style.display = "flex";
+
     } catch (e) {
       console.warn("Auto-update check offline / rate limit:", e);
       if (statusEl) {
-        statusEl.textContent = "Offline-Modus aktiv: Lokale Vokabellisten sind voll einsatzbereit.";
+        statusEl.textContent = "Offline-Modus aktiv: Lokale Vokabellisten & Trainingsdaten sind voll einsatzbereit.";
       }
     }
   }
