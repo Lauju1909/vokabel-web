@@ -494,7 +494,7 @@ class PortalApp {
     this.activeDeck = null;
     
     // Trainer States
-    this.currentMode = "topics"; // "topics", "star", "meister", "import", "settings"
+    this.currentMode = "apps"; // "apps", "downloads", "import", "settings"
     this.starSession = null;
     this.meisterSession = null;
   }
@@ -509,14 +509,14 @@ class PortalApp {
     this.renderTopics();
     this.setupEventListeners();
 
-    // Check URL hash for direct tab switching (e.g. #downloads or #settings)
+    // Check URL hash for direct tab switching (e.g. #downloads, #import, #settings, #apps)
     const hash = window.location.hash.replace("#", "");
-    if (hash && ["topics", "star", "meister", "import", "settings", "downloads"].includes(hash)) {
+    if (hash && ["apps", "topics", "star", "meister", "import", "settings", "downloads"].includes(hash)) {
       this.switchTab(hash);
     }
     window.addEventListener("hashchange", () => {
       const newHash = window.location.hash.replace("#", "");
-      if (newHash && ["topics", "star", "meister", "import", "settings", "downloads"].includes(newHash)) {
+      if (newHash && ["apps", "topics", "star", "meister", "import", "settings", "downloads"].includes(newHash)) {
         this.switchTab(newHash);
       }
     });
@@ -567,6 +567,7 @@ class PortalApp {
   }
 
   switchTab(tabId) {
+    if (tabId === "topics") tabId = "apps";
     sounds.click();
     this.currentMode = tabId;
 
