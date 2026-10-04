@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vokabel-Portal – Barrierefreier Vokabeltrainer (VokabelStar & VokabelMeister)</title>
+  <meta name="description" content="100% barrierefreies Vokabelportal für den Browser. Trainiere mit VokabelStar (Duolingo-Stil) oder VokabelMeister (schriftlich mit Damerau-Levenshtein Toleranz). Inklusive BFW Wirtschaftsenglisch!">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-duo font-normal">
+
+  <!-- Screenreader Live Announcements -->
+  <div id="sr-polite" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  <div id="sr-assertive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Header -->
+  <header class="portal-header" role="banner">
+    <div class="header-container">
+      <div class="logo-group">
+        <span class="logo-badge" aria-hidden="true">🦉✍️</span>
+        <div>
+          <h1 class="logo-title">Vokabel-Portal</h1>
+          <span class="logo-sub">VokabelStar & VokabelMeister Web • BFW Edition</span>
+        </div>
+      </div>
+
+      <!-- Gamification Stats -->
+      <div class="header-stats" role="region" aria-label="Lernfortschritt & Status">
+        <div class="stat-chip streak" title="Aktueller Tages-Streak" aria-label="Tages-Streak: 1 Tag">
+          <span aria-hidden="true">🔥</span>
+          <span id="stat-streak">1</span>
+        </div>
+        <div class="stat-chip xp" title="Gesammelte Erfahrungspunkte" aria-label="Erfahrungspunkte: 0 XP">
+          <span aria-hidden="true">⚡</span>
+          <span id="stat-xp">0</span> <span style="font-size: 0.75rem;">XP</span>
+        </div>
+        <div class="stat-chip hearts" title="Verbleibende Herzen" aria-label="Herzen: 5 von 5">
+          <span aria-hidden="true">❤️</span>
+          <span id="stat-hearts">5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Tabs -->
+    <nav class="portal-nav" role="navigation" aria-label="Hauptnavigation">
+      <button class="nav-tab-btn active" data-tab="topics" aria-label="Themen-Bibliothek und BFW Vokabellisten">
+        📚 Themen-Bibliothek
+      </button>
+      <button class="nav-tab-btn" data-tab="star" aria-label="VokabelStar Duolingo-Trainer">
+        🦉 VokabelStar (Duolingo)
+      </button>
+      <button class="nav-tab-btn" data-tab="meister" aria-label="VokabelMeister Schriftlicher Trainer">
+        ✍️ VokabelMeister (Schriftlich)
+      </button>
+      <button class="nav-tab-btn" data-tab="import" aria-label="Eigene Vokabeln importieren und exportieren">
+        📥 Import & Export
+      </button>
+      <button class="nav-tab-btn" data-tab="settings" aria-label="Einstellungen und Barrierefreiheit">
+        ⚙️ Einstellungen
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Body -->
+  <main class="portal-main" role="main">
+
+    <!-- Automatic Cloud Update Banner -->
+    <section id="update-banner" class="update-banner" role="status" aria-live="polite">
+      <div class="update-info">
+        <span aria-hidden="true" style="font-size: 1.4rem;">🔄</span>
+        <span id="update-status-text">Prüfe automatisch auf neue Vokabeln von GitHub...</span>
+      </div>
+      <button id="btn-check-updates-manual" class="btn btn-outline btn-sm" aria-label="Jetzt manuell nach Vokabel-Updates suchen">
+        Jetzt prüfen
+      </button>
+    </section>
+
+    <!-- TAB 1: THEMEN-BIBLIOTHEK (BFW 1, BFW 2 & STARTER) -->
+    <section id="pane-topics" class="tab-pane active" role="tabpanel" aria-label="Themen-Bibliothek">
+      <div style="margin-bottom: 20px;">
+        <h2 style="font-size: var(--font-size-xl); font-weight: 900; margin-bottom: 6px;">
+          Themen & BFW Vokabellisten
+        </h2>
+        <p style="color: var(--text-secondary);">
+          Wähle ein Thema aus, um es entweder interaktiv mit <strong>VokabelStar</strong> (Duolingo-Stil ohne Tippen) oder mit <strong>VokabelMeister</strong> (aktives Schreiben mit Tippfehlertoleranz) zu lernen.
+        </p>
+      </div>
+
+      <!-- Topics Grid -->
+      <div id="topics-grid" class="grid-cols-2" role="region" aria-label="Liste aller verfügbaren Lektionen">
+        <!-- Dynamically injected via portal.js -->
+      </div>
+    </section>
+
+    <!-- TAB 2: VOKABELSTAR MODUS (DUOLINGO-STIL) -->
+    <section id="pane-star" class="tab-pane" role="tabpanel" aria-label="VokabelStar Spielmodus">
+      <div class="trainer-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <div>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--primary);">VOKABELSTAR TRAINER</span>
+            <h2 id="star-deck-title" style="font-size: var(--font-size-lg); font-weight: 900;">Thema lädt...</h2>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="portalApp.switchTab('topics')" aria-label="Thema wechseln">
+            Anderes Thema
+          </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="trainer-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <div id="star-progress-fill" class="trainer-progress-fill"></div>
+        </div>
+
+        <!-- Dynamic Exercise Box -->
+        <div id="star-exercise-area" class="card">
+          <!-- Exercise content injected here -->
+        </div>
+
+        <!-- Feedback & Continue -->
+        <div id="star-feedback" class="feedback-box" style="display: none;" role="alert"></div>
+        <div style="text-align: right;">
+          <button id="star-btn-next" class="btn btn-primary" style="display: none;" aria-label="Nächste Übung">
+            Weiter ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: VOKABELMEISTER MODUS (SCHRIFTLICH) -->
+    <section id="pane-meister" class="tab-pane" role="tabpanel" aria-label="VokabelMeister Schriftlicher Modus">
+      <div class="trainer-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <div>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--secondary);">VOKABELMEISTER SCHREIBTRAINER</span>
+            <h2 id="meister-deck-title" style="font-size: var(--font-size-lg); font-weight: 900;">Thema lädt...</h2>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="portalApp.switchTab('topics')" aria-label="Thema wechseln">
+            Anderes Thema
+          </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="trainer-progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <div id="meister-progress-fill" class="trainer-progress-fill" style="background: var(--secondary);"></div>
+        </div>
+
+        <!-- Dynamic Exercise Box -->
+        <div id="meister-exercise-area" class="card">
+          <!-- Exercise content injected here -->
+        </div>
+
+        <!-- Feedback & Continue -->
+        <div id="meister-feedback" class="feedback-box" style="display: none;" role="alert"></div>
+        <div style="text-align: right;">
+          <button id="meister-btn-next" class="btn btn-secondary" style="display: none;" aria-label="Nächste Vokabel">
+            Weiter ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: IMPORT & EXPORT -->
+    <section id="pane-import" class="tab-pane" role="tabpanel" aria-label="Import und Export">
+      <div class="card" style="max-width: 720px; margin: 0 auto;">
+        <h2 style="font-size: var(--font-size-xl); font-weight: 900; margin-bottom: 12px;">
+          📥 Universal-Import
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+          Importiere deine eigenen Vokabellisten aus Word-Dokumenten (<strong>.docx</strong>), Excel-Tabellen (<strong>.xlsx</strong>), <strong>CSV</strong>, <strong>TXT</strong> oder <strong>JSON</strong>. Die Listen stehen dir sofort in beiden Trainings-Modi zur Verfügung!
+        </p>
+
+        <div class="form-group">
+          <label for="import-file-input" class="form-label">Datei vom Computer oder Smartphone auswählen:</label>
+          <input type="file" id="import-file-input" class="form-input" accept=".docx,.xlsx,.xls,.csv,.txt,.json" aria-label="Vokabeldatei für Import auswählen">
+        </div>
+
+        <button id="btn-run-import" class="btn btn-primary" style="width: 100%; margin-bottom: 24px;">
+          📥 Vokabeln jetzt importieren
+        </button>
+
+        <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 24px 0;">
+
+        <h3 style="font-size: var(--font-size-lg); font-weight: 800; margin-bottom: 8px;">
+          📤 Sicherung & Export
+        </h3>
+        <p style="color: var(--text-secondary); margin-bottom: 16px;">
+          Speichere deine Lernstände, Erfahrungspunkte und selbst importierten Vokabelpakete als JSON-Backup auf deinem Gerät.
+        </p>
+        <button id="btn-export-backup" class="btn btn-outline" style="width: 100%;">
+          📤 Backup herunterladen (.json)
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 5: EINSTELLUNGEN & BARRIEREFREIHEIT -->
+    <section id="pane-settings" class="tab-pane" role="tabpanel" aria-label="Einstellungen">
+      <div class="card" style="max-width: 680px; margin: 0 auto;">
+        <h2 style="font-size: var(--font-size-xl); font-weight: 900; margin-bottom: 16px;">
+          ⚙️ Einstellungen & Barrierefreiheit
+        </h2>
+
+        <div class="form-group">
+          <label for="setting-theme" class="form-label">Farb-Design (Kontrast):</label>
+          <select id="setting-theme" class="form-select">
+            <option value="theme-duo">🦉 Duolingo Standard (Grün / Hell)</option>
+            <option value="theme-contrast">⚡ Hoch-Kontrast (Gelb auf Schwarz für Sehbehinderte)</option>
+            <option value="theme-dark">🌙 Dunkel-Modus (Slate Dark)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="setting-font" class="form-label">Schriftgröße:</label>
+          <select id="setting-font" class="form-select">
+            <option value="font-normal">Standard (18px)</option>
+            <option value="font-large">Groß (22px)</option>
+            <option value="font-xlarge">Extra Groß (26px)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="toggle-label">
+            <input type="checkbox" id="setting-sound" class="toggle-checkbox" checked>
+            <span>🔊 Sound-Effekte aktivieren (Erfolg & Fehler-Töne)</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="toggle-label">
+            <input type="checkbox" id="setting-tts" class="toggle-checkbox" checked>
+            <span>🗣️ Sprachausgabe (Text-to-Speech) aktivieren</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label class="toggle-label">
+            <input type="checkbox" id="setting-unlimited-hearts" class="toggle-checkbox">
+            <span>❤️ Unbegrenzte Leben (kein Herzverlust bei Fehlern)</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="portal-footer" role="contentinfo">
+    <p>
+      <strong>Vokabel-Portal Web</strong> • Entwickelt von Lauri & Team • 100% Barrierefrei (TalkBack & NVDA optimiert)
+    </p>
+    <p style="margin-top: 6px; font-size: 0.8rem;">
+      Automatische Aktualisierung über GitHub Pages & Open Source.
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="bfw_catalog.js"></script>
+  <script src="vokabelmeister_data.js"></script>
+  <script src="mammoth.browser.min.js"></script>
+  <script src="xlsx.full.min.js"></script>
+  <script src="portal.js"></script>
+</body>
+</html>

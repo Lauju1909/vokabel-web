@@ -1,0 +1,3296 @@
+window.BFW_CATALOG = [
+  {
+    "id": "bfw1_job_profiles",
+    "level": "BFW 1",
+    "title": "Berufsausbildung & Arbeitswelt",
+    "subtitle": "Just the Job – Unit 2",
+    "icon": "💼",
+    "desc": "Vokabeln rund um Ausbildungsberufe, Tätigkeiten und Berufsprofile",
+    "count": 100,
+    "words": [
+      {
+        "front": "to train as…",
+        "back": "eine Ausbildung zum/zur…machen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "chef",
+        "back": "Koch/Köchin, Chefkoch/-köchin",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "cruise",
+        "back": "Kreuzfahrt",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "sand",
+        "back": "Sand",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "stressful",
+        "back": "anstrengend, stressig",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "based in…",
+        "back": "mit Sitz in…, ansässig in…",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to join",
+        "back": "beitreten, eintreten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "apprenticeship",
+        "back": "Lehre, Ausbildung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "automobile",
+        "back": "Auto-, Automobil-",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to happen",
+        "back": "geschehen, passieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "disadvantage",
+        "back": "Nachteil",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "dialogue",
+        "back": "Dialog, Gespräch",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "receptionist",
+        "back": "Empfangsmitarbeiter/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "appointment",
+        "back": "Termin, Verabredung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "reception",
+        "back": "Empfang",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "meeting",
+        "back": "Besprechung, Sitzung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Pleased to meet you.",
+        "back": "Schön, Sie kennenzulernen.",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "assistant manager",
+        "back": "Stellvertretende/r Leiter/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to look after sb/sth",
+        "back": "sich um jdn/etw kümmern",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to introduce sb to sb",
+        "back": "jdn jdm vorstellen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Nice to meet you.",
+        "back": "Schön, Sie kennenzulernen.",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "introduction (to sth)",
+        "back": "Einführung (in etw), Vorstellung (von etw)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to show sb around",
+        "back": "jdn herumführen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "sales manager",
+        "back": "Verkaufsleiter/in, Vertriebsleiter/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "properly",
+        "back": "richtig",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "not until",
+        "back": "erst",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "absolutely",
+        "back": "absolut, vollkommen, völlig",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to get going",
+        "back": "loslegen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to be happy to do sth",
+        "back": "etw gern tun",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to consist of sth",
+        "back": "aus etw bestehen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "resource",
+        "back": "Mittel, Betriebsmittel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "brochure",
+        "back": "Prospekt, Brochüre",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "as soon as",
+        "back": "sobald",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to join sb",
+        "back": "sich jdm anschließen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "tired",
+        "back": "müde",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to welcome sb",
+        "back": "jdn willkommen heißen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "conversation",
+        "back": "Gespräch",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "structure",
+        "back": "Struktur",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "sheet",
+        "back": "Blatt (Papier)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to found",
+        "back": "gründen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "employee",
+        "back": "Angestellte/r",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "situated",
+        "back": "Gelegen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "client",
+        "back": "Kunde/Kundin",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to hire",
+        "back": "(Personal) einstellen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to establish",
+        "back": "gründen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "annual",
+        "back": "Jährlich, Jahres-",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "turnover",
+        "back": "Umsatz",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "production facilities",
+        "back": "Produktionsanlagen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "nearby",
+        "back": "nahe gelegen, umliegend",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "distribution centre",
+        "back": "Vertriebszentrum",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to maintain",
+        "back": "Aufrechterhalten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "relation",
+        "back": "Beziehung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "trendy",
+        "back": "modisch",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "functional",
+        "back": "zweckmäßig, funktionell",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "way",
+        "back": "Art (und Weise)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to advertise sth",
+        "back": "Für etw werben, für etw Werbung machen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to recruit",
+        "back": "anwerben",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to brainstorm",
+        "back": "Ideen sammeln",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to manufacture",
+        "back": "herstellen, fertigen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to ship",
+        "back": "versenden, ausliefern",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "invoice",
+        "back": "Rechnung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to invoice sb",
+        "back": "jdn. Eine Rechnung stellen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "production",
+        "back": "Fertigung, Produktion",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "accounting",
+        "back": "Buchhaltung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "distribution",
+        "back": "Vertrieb",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "responsibility",
+        "back": "Zuständigkeit, Aufgabe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to head",
+        "back": "leiten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to be in charge of sth",
+        "back": "für etw. zuständig sein",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to report to sb",
+        "back": "jdm. unterstellt sein",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to work alongside sb",
+        "back": "mit jdm. zusammenarbeiten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "organigram",
+        "back": "Organigramm",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "managing director",
+        "back": "Geschäftsführer/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "operations director",
+        "back": "Betriebsleiter/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "finance director",
+        "back": "Leiter/in Finanzen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "production manager",
+        "back": "Produktionsleiter/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "logistics",
+        "back": "Logistik",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "production assistant",
+        "back": "Produktionsassistent/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "accounts department",
+        "back": "Buchhaltungsabteilung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "accounts assistant",
+        "back": "Buchhaltungsassistent/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "information desk",
+        "back": "Informationsschalter",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "basement",
+        "back": "Untergeschoss",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "grocery",
+        "back": "Lebensmittel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "kitchenware",
+        "back": "Küchengeräte",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "home furniture",
+        "back": "Wohnmöbel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "lingerie",
+        "back": "Damenunterwäsche, Dessous",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Excuse me.",
+        "back": "Entschuldigung/Verzeihung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "frying pan",
+        "back": "Bratpfanne",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to burn sth",
+        "back": "etw. verbrennen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "ground floor",
+        "back": "Erdgeschoss",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "next to",
+        "back": "neben",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "You’re welcome.",
+        "back": "Bitte. Gern geschehen.",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "grandchild",
+        "back": "Enkelkind",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "in front of",
+        "back": "vor",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "behind",
+        "back": "hinter",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "towel",
+        "back": "Handtuch",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "B&B (bed&breakfast)",
+        "back": "Pension",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "none",
+        "back": "keine/r/s",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "escalator",
+        "back": "Rolltreppe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "past sth",
+        "back": "an etw. vorbei",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "underwear",
+        "back": "Unterwäsche",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw1_department_store",
+    "level": "BFW 1",
+    "title": "Kaufhaus & Orientierung",
+    "subtitle": "Department Store Vocabulary",
+    "icon": "🏬",
+    "desc": "Abteilungen im Kaufhaus, Stockwerke und Wegbeschreibungen",
+    "count": 21,
+    "words": [
+      {
+        "front": "grocery department",
+        "back": "Lebensmittel(abteilung)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "home furniture department",
+        "back": "Haushaltswaren(abteilung)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "office furniture department",
+        "back": "Büroartikel(abteilung)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "café",
+        "back": "Cafe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "China department",
+        "back": "Asia(abteilung)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "kitchenware department",
+        "back": "Küchenartikel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "glass department",
+        "back": "Glaswaren/Porzellan",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "gift shop",
+        "back": "Souvenirladen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "womenswear",
+        "back": "Damenbekleidung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "lingerie department",
+        "back": "Wäscheabteilung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "bed&bath department",
+        "back": "Bad- und Bettwaren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "stationery department",
+        "back": "Schreibwarenabteilung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "menswear",
+        "back": "Herrenbekleidung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "toy department",
+        "back": "Spielwaren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "multimedia department",
+        "back": "Multimedia(abteilung)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "sports department",
+        "back": "Sportartikel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "lift",
+        "back": "Fahrstuhl",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "basement",
+        "back": "Untergeschoss",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "ground floor",
+        "back": "Erdgeschoss",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "first floor",
+        "back": "1. Etage",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "second floor",
+        "back": "2. Etage",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw1_company_departments",
+    "level": "BFW 1",
+    "title": "Unternehmensabteilungen",
+    "subtitle": "Company Departments",
+    "icon": "🏢",
+    "desc": "Fachabteilungen eines Unternehmens (Versand, Einkauf, Buchhaltung etc.)",
+    "count": 38,
+    "words": [
+      {
+        "front": "dispatch",
+        "back": "Abfertigung, Versand",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "treatment room",
+        "back": "Behandlungszimmer",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Office",
+        "back": "Büro",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Controlling",
+        "back": "Controlling",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Entrance",
+        "back": "Eingang",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "lobby, entrance hall",
+        "back": "Eingangshalle",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Purchasing",
+        "back": "Einkauf",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "manufacturing",
+        "back": "Fertigung, Herstellung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "financial accounting",
+        "back": "Finanzbuchhaltung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "research and development",
+        "back": "Forschung und Entwicklung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Management",
+        "back": "Geschäftsführung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "foundry",
+        "back": "Gießerei",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "production",
+        "back": "Herstellung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "cafeteria, canteen",
+        "back": "Kantine",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "conference, meeting room",
+        "back": "Konferenzzimmer",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "cost accounting",
+        "back": "Kostenrechnung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "kitchen",
+        "back": "Küche",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "laboratory",
+        "back": "Labor",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "warehouse",
+        "back": "Lagerhalle, Auslieferungslager",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "stock control, stocks",
+        "back": "Lagerhaltung, Inventar",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "logistics",
+        "back": "Logistik",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "marketing",
+        "back": "Marketing",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "public relations",
+        "back": "Öffentlichkeitsarbeit, Werbeabteilung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "personnel, human resources",
+        "back": "Personalabteilung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "mailroom",
+        "back": "Poststelle",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "quality control",
+        "back": "Qualitätssicherung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "accounting",
+        "back": "Rechnungswesen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "restaurant",
+        "back": "Restaurant",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "reception",
+        "back": "Rezeption",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "raw materials",
+        "back": "Rohstoffe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "secretariat",
+        "back": "Sekretariat",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Statistics",
+        "back": "Statistik",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Sales",
+        "back": "Verkauf",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Distribution",
+        "back": "Vertrieb, Auslieferung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "administration",
+        "back": "Verwaltung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "waiting room",
+        "back": "Wartezimmer",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "shop",
+        "back": "Werkstatt",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "money transfers",
+        "back": "Zahlungsverkehr",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw1_company_profiles",
+    "level": "BFW 1",
+    "title": "Betriebliches Praktikum",
+    "subtitle": "Traineeship & Appointment",
+    "icon": "📋",
+    "desc": "Wichtige Begriffe zum Praktikum und Unternehmensprofil",
+    "count": 3,
+    "words": [
+      {
+        "front": "traineeship",
+        "back": "Praktikum",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Appointment",
+        "back": "Ernennung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "show",
+        "back": "Zeigen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw1_cover_letter",
+    "level": "BFW 1",
+    "title": "Bewerbung & Anschreiben",
+    "subtitle": "Cover Letter & Application",
+    "icon": "✍️",
+    "desc": "Formulierungen für Anschreiben, Begrüßung und Einleitungssätze",
+    "count": 30,
+    "words": [
+      {
+        "front": "cover letter",
+        "back": "Bewerbungsschreiben",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Greeting",
+        "back": "Begrüßung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Introductory remarks",
+        "back": "Einleitende Bemerkungen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Main body",
+        "back": "Hauptteil",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "soft skills",
+        "back": "Soziale Kompetenzen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "marketing agency",
+        "back": "Werbeagentur / Marketingagentur",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "communication skills",
+        "back": "Kommunikationsfähigkeiten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "human nature",
+        "back": "menschliche Natur",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Corporate reference",
+        "back": "Firmenbezug",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "apply",
+        "back": "sich bewerben",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "resume",
+        "back": "Lebenslauf",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "certificates",
+        "back": "Zeugnisse",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "motivational letter",
+        "back": "Motivationsschreiben",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "ad acta",
+        "back": "zu den Akten legen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Sender/contact details",
+        "back": "Absender-/Kontaktdaten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Dear Madam/Sir",
+        "back": "Sehr geehrte Damen und Herren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "advisable",
+        "back": "ratsam",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "deviate",
+        "back": "abweichen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "recipient",
+        "back": "Empfänger",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "qualifications",
+        "back": "Qualifikationen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "detailed descriptions",
+        "back": "detaillierte Beschreibungen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "company",
+        "back": "Unternehmen / Firma",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "convincingly",
+        "back": "überzeugend",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "properly perused",
+        "back": "gründlich durchgelesen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "motivation",
+        "back": "Motivation",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "creativity",
+        "back": "Kreativität",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Resources",
+        "back": "Ressourcen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "specific knowledge and skills",
+        "back": "spezifische Kenntnisse und Fähigkeiten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "concentrate",
+        "back": "konzentrieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "following points",
+        "back": "folgende Punkte",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw2_layout",
+    "level": "BFW 2",
+    "title": "Geschäftsbriefe & E-Mails",
+    "subtitle": "Layout of Letters and Emails",
+    "icon": "✉️",
+    "desc": "Formale Gestaltung und Wortschatz geschäftlicher E-Mails und Briefe",
+    "count": 50,
+    "words": [
+      {
+        "front": "commercial",
+        "back": "Geschäfts, Handels",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to explode",
+        "back": "explodieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "chewing gum",
+        "back": "Kaugummi",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "as soon as possible",
+        "back": "baldmöglichst",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to return",
+        "back": "zurückgeben, zurücksenden",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to despatch (BE)",
+        "back": "versenden",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "grateful",
+        "back": "dankbar",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "within",
+        "back": "innerhalb, binnen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "discount",
+        "back": "Rabatt, Nachlass",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "innovative",
+        "back": "innovativ",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "manufacturer",
+        "back": "Hersteller, Produzent",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "apology",
+        "back": "Entschuldigung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "complaint",
+        "back": "Reklamation",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "confirmation",
+        "back": "Bestätigung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "layout",
+        "back": "Layout, Gestaltung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "letterhead",
+        "back": "Briefkopf",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "inside address",
+        "back": "Empfängeradresse, Innenanschrift",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "reference",
+        "back": "Referenz, Zeichen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "salutation",
+        "back": "(Brief:) Anrede, Grußformel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "subject line",
+        "back": "(Brief:) Betreffzeile",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to supply (sb with sth)",
+        "back": "(jdm etw) liefern, jdn mit etw beliefern",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "dated ...",
+        "back": "vom ...",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "item",
+        "back": "Posten, Artikel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to agree (on) sth",
+        "back": "etw vereinbaren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "catalogue",
+        "back": "Katalog",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "trade discount",
+        "back": "Handelsrabatt",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "list price",
+        "back": "Listenpreis, Katalogpreis",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "cash discount",
+        "back": "Skonto, Barzahlungsrabatt",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "payment",
+        "back": "Zahlung, Bezahlung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "shortly",
+        "back": "in Kürze, demnächst, bald",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "complimentary close",
+        "back": "(Brief:) Schlussformel",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "signature",
+        "back": "Unterschrift",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "business letter",
+        "back": "Geschäftsbrief",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "abbreviation",
+        "back": "Abkürzung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "limited company (Ltd)",
+        "back": "GmbH",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "for the attention of",
+        "back": "(Brief:) zu Händen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "further to",
+        "back": "bezugnehmend auf",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "stand",
+        "back": "(Messe)Stand",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "trade fair",
+        "back": "(Branche, Handels) Messe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "range",
+        "back": "Angebot, Produktlinie",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "enquiry",
+        "back": "Anfrage",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "sportswear",
+        "back": "Sportbekleidung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to structure",
+        "back": "strukturieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "body",
+        "back": "(Brief:) Hauptteil",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "formal",
+        "back": "formell, förmlich",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to confirm",
+        "back": "bestätigen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "application",
+        "back": "Antrag",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "conclusion",
+        "back": "Schluss",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to inform",
+        "back": "mitteilen, (jdn von etw) unterrichten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "tournament",
+        "back": "Turnier",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw2_enquiries",
+    "level": "BFW 2",
+    "title": "Geschäftliche Anfragen",
+    "subtitle": "Commercial Enquiries",
+    "icon": "❓",
+    "desc": "Wortschatz für schriftliche Kunden- und Lieferantenanfragen",
+    "count": 45,
+    "words": [
+      {
+        "front": "supplier",
+        "back": "Lieferant, Zulieferer",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "letter of enquiry",
+        "back": "(schriftliche) Anfrage",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "wooden",
+        "back": "aus Holz",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "creditworthiness",
+        "back": "Bonität, Kreditwürdigkeit",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "edition",
+        "back": "(Zeitschrift:) Ausgabe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "leading",
+        "back": "führend",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to extend",
+        "back": "erweitern, ausbauen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "line of products",
+        "back": "Produktlinie, Produktionspalette, Sortiment",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "terms",
+        "back": "Bedingungen, Konditionen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "terms of delivery",
+        "back": "Lieferbedingungen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "terms of payment",
+        "back": "Zahlungsbedingungen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "requirement",
+        "back": "Anforderung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to meet a requirement",
+        "back": "einer Anforderung genügen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to place",
+        "back": "platzieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to place an order",
+        "back": "einen Auftrag platzieren/erteilen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to supply (somebody with something)",
+        "back": "(jemandem etwas) zur Verfügung stellen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "in bulk",
+        "back": "en gros, in großer Menge",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "creditworthy",
+        "back": "kreditwürdig",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "account",
+        "back": "Konto",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to settle an account",
+        "back": "ein Konto ausgleichen, eine Rechnung begleichen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "conditional",
+        "back": "Bedingung, Konditional",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "satisfactory",
+        "back": "zufriedenstellend",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to fax",
+        "back": "faxen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to transfer",
+        "back": "(Geld) überweisen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "sample",
+        "back": "Muster, Probe",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "express delivery",
+        "back": "Eilzustellung, Expresslieferung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "stock",
+        "back": "Warenbestand, Vorräte",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "introduction",
+        "back": "Einleitung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "small company",
+        "back": "Kleinunternehmen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "medium-sized company",
+        "back": "mittelständisches Unternehmen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "quotation",
+        "back": "Angebot, Kostenvoranschlag",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "importer",
+        "back": "Importeur",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "Chamber of Commerce",
+        "back": "Handelskammer",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to specialise in something",
+        "back": "sich auf etwas spezialisieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to wish for something",
+        "back": "etwas wollen, (sich) etwas wünschen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "trial order",
+        "back": "Probeauftrag",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "demand (for something)",
+        "back": "Nachfrage (nach etwas)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "major",
+        "back": "bedeutend, groß",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "distributor",
+        "back": "Händler/in, Vertragshändler/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "gear",
+        "back": "Kleidung, Ausrüstung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "potential",
+        "back": "potentiell",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "source",
+        "back": "Quelle, Bezug",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "outlet",
+        "back": "Verkaufsstelle, Geschäft",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "operations",
+        "back": "Geschäftstätigkeit",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to keep something at hand",
+        "back": "etwas griffbereit halten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "bfw2_offers",
+    "level": "BFW 2",
+    "title": "Angebote & Lieferkonditionen",
+    "subtitle": "Commercial Offers",
+    "icon": "🏷️",
+    "desc": "Kaufmännische Angebote, Rabatte, Zahlungs- und Lieferbedingungen (EXW, etc.)",
+    "count": 47,
+    "words": [
+      {
+        "front": "major",
+        "back": "bedeutend, groß",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "distributor",
+        "back": "Händler/in, Vertragshändler/in",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "gear",
+        "back": "Kleidung, Ausrüstung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "potential",
+        "back": "potentiell",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "source",
+        "back": "Quelle, Bezug",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "outlet",
+        "back": "Verkaufsstelle, Geschäft",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "operations",
+        "back": "Geschäftstätigkeit",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to keep sth at hand",
+        "back": "etw griffbereit halten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to request sth",
+        "back": "um etwas bitten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "request",
+        "back": "Bitte, Anfrage",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "with reference to",
+        "back": "mit Bezug auf",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "currently",
+        "back": "aktuell, gegenwärtig, momentan",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "in stock",
+        "back": "auf Lager",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to draw sb's attention to sth",
+        "back": "jds Aufmerksamkeit auf etw lenken",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "latest addition",
+        "back": "Neuzugang, neueste Ergänzung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "executive",
+        "back": "Manager/in, Vorstands",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "conference table",
+        "back": "Konferenztisch",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to design",
+        "back": "entwerfen, gestalten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to be used to sth",
+        "back": "an etw gewöhnt sein",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to quote a price",
+        "back": "einen (Angebotspreis angeben / nennen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "EXW = ex works",
+        "back": "ab Werk",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to pack",
+        "back": "verpacken",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "individually",
+        "back": "einzeln",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to deal with sth",
+        "back": "etw bearbeiten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "efficient",
+        "back": "effizient",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to convince sb of sth",
+        "back": "jdn von etw überzeugen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "assistance",
+        "back": "Hilfe, Unterstützung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to be of assistance",
+        "back": "helfen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to prepare",
+        "back": "vorbereiten",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to import",
+        "back": "importieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to enquire about sth",
+        "back": "sich nach etw erkundigen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to refer to sth",
+        "back": "sich auf etw beziehen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "reference (to sth)",
+        "back": "Bezug (zu etw), Bezugnahme (auf etw)",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to point sth out",
+        "back": "auf etw hinweisen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "special offer",
+        "back": "Sonderangebot",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "warranty",
+        "back": "Garantie, Gewährleistung",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "valid",
+        "back": "gültig",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "approximately",
+        "back": "ungefähr",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "delivery date",
+        "back": "Lieferdatum",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "receipt",
+        "back": "Erhalt",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "receipt of order",
+        "back": "Auftragseingang",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to guarantee",
+        "back": "garantieren",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "immediate",
+        "back": "unverzüglich, sofortig",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "approval",
+        "back": "Zustimmung, Einverständnis",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to meet with sb's approval",
+        "back": "jds Zustimmung finden",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "to do business with sb",
+        "back": "mit jdm Geschäfte tätigen/machen",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      },
+      {
+        "front": "excellent",
+        "back": "hervorragend, ausgezeichnet",
+        "lang_front": "Englisch",
+        "lang_back": "Deutsch"
+      }
+    ]
+  },
+  {
+    "id": "jobfit_unit5",
+    "title": "Jobfit Unit 5: Medien, Prominente & Werbung",
+    "subtitle": "AVW Englisch • S. 45–55",
+    "level": "BFW 1",
+    "icon": "📺",
+    "desc": "Medienlandschaft, Prominente, Fernsehen, Werbung, Berühmtheiten und Meinungsäußerung.",
+    "count": 110,
+    "words": [
+      {
+        "front": "media",
+        "back": "Medien",
+        "note": "S. 45"
+      },
+      {
+        "front": "star",
+        "back": "Star, Stern",
+        "note": "S. 45"
+      },
+      {
+        "front": "basically",
+        "back": "im Grunde, grundsätzlich",
+        "note": "S. 45"
+      },
+      {
+        "front": "singer",
+        "back": "Sänger/in",
+        "note": "S. 45"
+      },
+      {
+        "front": "writer",
+        "back": "Schriftsteller/in, Autor/in",
+        "note": "S. 45"
+      },
+      {
+        "front": "politician",
+        "back": "Politiker/in",
+        "note": "S. 45"
+      },
+      {
+        "front": "celebrity",
+        "back": "Prominente/r, Berühmtheit",
+        "note": "S. 45"
+      },
+      {
+        "front": "to recognize",
+        "back": "(wieder) erkennen",
+        "note": "S. 45"
+      },
+      {
+        "front": "to admire",
+        "back": "bewundern",
+        "note": "S. 45"
+      },
+      {
+        "front": "advertiser",
+        "back": "Inserent/in, Werbefirma",
+        "note": "S. 45"
+      },
+      {
+        "front": "product",
+        "back": "Produkt, Erzeugnis",
+        "note": "S. 45"
+      },
+      {
+        "front": "actor",
+        "back": "Schauspieler",
+        "note": "S. 45"
+      },
+      {
+        "front": "actress",
+        "back": "Schauspielerin",
+        "note": "S. 45"
+      },
+      {
+        "front": "colouring",
+        "back": "Einfärbung",
+        "note": "S. 45"
+      },
+      {
+        "front": "icon",
+        "back": "Ikone, Symbol",
+        "note": "S. 46"
+      },
+      {
+        "front": "acting",
+        "back": "schauspielerisch",
+        "note": "S. 46"
+      },
+      {
+        "front": "short",
+        "back": "kurz",
+        "note": "S. 46"
+      },
+      {
+        "front": "director",
+        "back": "Regisseur/in",
+        "note": "S. 46"
+      },
+      {
+        "front": "east",
+        "back": "östlich",
+        "note": "S. 46"
+      },
+      {
+        "front": "rebel",
+        "back": "Rebell",
+        "note": "S. 46"
+      },
+      {
+        "front": "cause",
+        "back": "Grund, Anlass",
+        "note": "S. 46"
+      },
+      {
+        "front": "handsome",
+        "back": "gut aussehend",
+        "note": "S. 46"
+      },
+      {
+        "front": "idol",
+        "back": "Idol, Vorbild",
+        "note": "S. 46"
+      },
+      {
+        "front": "unfortunately",
+        "back": "unglücklicherweise, leider",
+        "note": "S. 46"
+      },
+      {
+        "front": "crash",
+        "back": "Unfall",
+        "note": "S. 46"
+      },
+      {
+        "front": "west",
+        "back": "westlich",
+        "note": "S. 46"
+      },
+      {
+        "front": "ugly",
+        "back": "hässlich",
+        "note": "S. 46"
+      },
+      {
+        "front": "apartment",
+        "back": "Wohnung, Apartment",
+        "note": "S. 47"
+      },
+      {
+        "front": "skipper",
+        "back": "Kapitän",
+        "note": "S. 47"
+      },
+      {
+        "front": "lane",
+        "back": "Gasse, Weg",
+        "note": "S. 47"
+      },
+      {
+        "front": "coach",
+        "back": "Reisebus",
+        "note": "S. 47"
+      },
+      {
+        "front": "birth",
+        "back": "Geburt",
+        "note": "S. 47"
+      },
+      {
+        "front": "powerful",
+        "back": "mächtig, einflussreich",
+        "note": "S. 48"
+      },
+      {
+        "front": "advertising",
+        "back": "Werbung, Reklame",
+        "note": "S. 48"
+      },
+      {
+        "front": "charity",
+        "back": "Wohltätigkeit",
+        "note": "S. 48"
+      },
+      {
+        "front": "disabled",
+        "back": "(körper)behindert",
+        "note": "S. 48"
+      },
+      {
+        "front": "wheelchair",
+        "back": "Rollstuhl",
+        "note": "S. 48"
+      },
+      {
+        "front": "delighted",
+        "back": "(sehr) erfreut",
+        "note": "S. 48"
+      },
+      {
+        "front": "independent",
+        "back": "unabhängig",
+        "note": "S. 48"
+      },
+      {
+        "front": "malaria",
+        "back": "Malaria",
+        "note": "S. 48"
+      },
+      {
+        "front": "net",
+        "back": "(Moskito-)Netz",
+        "note": "S. 48"
+      },
+      {
+        "front": "to support",
+        "back": "unterstützen",
+        "note": "S. 48"
+      },
+      {
+        "front": "to donate",
+        "back": "spenden",
+        "note": "S. 48"
+      },
+      {
+        "front": "dollar",
+        "back": "Dollar",
+        "note": "S. 48"
+      },
+      {
+        "front": "clip",
+        "back": "(Video-)Clip, kurzer (Werbe-)Film",
+        "note": "S. 48"
+      },
+      {
+        "front": "luxury",
+        "back": "Luxus",
+        "note": "S. 48"
+      },
+      {
+        "front": "southern",
+        "back": "südlich",
+        "note": "S. 48"
+      },
+      {
+        "front": "multinational",
+        "back": "multinational",
+        "note": "S. 48"
+      },
+      {
+        "front": "connector",
+        "back": "Bindewort",
+        "note": "S. 49"
+      },
+      {
+        "front": "untrue",
+        "back": "unwahr",
+        "note": "S. 49"
+      },
+      {
+        "front": "roadie",
+        "back": "Roadie",
+        "note": "S. 50"
+      },
+      {
+        "front": "beautician",
+        "back": "Kosmetiker/in",
+        "note": "S. 50"
+      },
+      {
+        "front": "lighting",
+        "back": "Beleuchtung, Licht",
+        "note": "S. 50"
+      },
+      {
+        "front": "sound",
+        "back": "Ton",
+        "note": "S. 50"
+      },
+      {
+        "front": "technician",
+        "back": "Techniker/in",
+        "note": "S. 50"
+      },
+      {
+        "front": "rigger",
+        "back": "Bühnenarbeiter/in",
+        "note": "S. 50"
+      },
+      {
+        "front": "to set up",
+        "back": "aufbauen",
+        "note": "S. 50"
+      },
+      {
+        "front": "to control",
+        "back": "kontrollieren, regeln",
+        "note": "S. 50"
+      },
+      {
+        "front": "stage",
+        "back": "Bühne",
+        "note": "S. 50"
+      },
+      {
+        "front": "microphone",
+        "back": "Mikrophon",
+        "note": "S. 50"
+      },
+      {
+        "front": "steel",
+        "back": "Stahl",
+        "note": "S. 50"
+      },
+      {
+        "front": "scaffolding",
+        "back": "(Bau-)Gerüst",
+        "note": "S. 50"
+      },
+      {
+        "front": "catering",
+        "back": "Versorgung mit Speisen und Getränken",
+        "note": "S. 50"
+      },
+      {
+        "front": "factory",
+        "back": "Fabrik",
+        "note": "S. 51"
+      },
+      {
+        "front": "emergency",
+        "back": "Notfall",
+        "note": "S. 51"
+      },
+      {
+        "front": "first aid",
+        "back": "erste Hilfe",
+        "note": "S. 51"
+      },
+      {
+        "front": "exit",
+        "back": "Ausgang",
+        "note": "S. 51"
+      },
+      {
+        "front": "substance",
+        "back": "Substanz, Stoff",
+        "note": "S. 51"
+      },
+      {
+        "front": "toxic",
+        "back": "giftig, toxisch",
+        "note": "S. 51"
+      },
+      {
+        "front": "slippery",
+        "back": "glatt, rutschig",
+        "note": "S. 51"
+      },
+      {
+        "front": "apprentice",
+        "back": "Lehrling, Auszubildende/r",
+        "note": "S. 51"
+      },
+      {
+        "front": "work experience",
+        "back": "Praktikum",
+        "note": "S. 51"
+      },
+      {
+        "front": "supervisor",
+        "back": "Ausbilder/in",
+        "note": "S. 51"
+      },
+      {
+        "front": "report",
+        "back": "Bericht",
+        "note": "S. 51"
+      },
+      {
+        "front": "to care",
+        "back": "sich kümmern",
+        "note": "S. 52"
+      },
+      {
+        "front": "tomb",
+        "back": "Grab",
+        "note": "S. 52"
+      },
+      {
+        "front": "raider",
+        "back": "Plünderer, Schänder",
+        "note": "S. 52"
+      },
+      {
+        "front": "Cambodia",
+        "back": "Kambodscha",
+        "note": "S. 52"
+      },
+      {
+        "front": "to realize",
+        "back": "(sich) bewusst werden",
+        "note": "S. 52"
+      },
+      {
+        "front": "horrible",
+        "back": "schrecklich, furchtbar",
+        "note": "S. 52"
+      },
+      {
+        "front": "landmine",
+        "back": "Landmine",
+        "note": "S. 52"
+      },
+      {
+        "front": "war",
+        "back": "Krieg",
+        "note": "S. 52"
+      },
+      {
+        "front": "to injure",
+        "back": "verletzen",
+        "note": "S. 52"
+      },
+      {
+        "front": "thousand",
+        "back": "tausend",
+        "note": "S. 52"
+      },
+      {
+        "front": "to ban",
+        "back": "verbieten",
+        "note": "S. 52"
+      },
+      {
+        "front": "refugee",
+        "back": "Flüchtling",
+        "note": "S. 52"
+      },
+      {
+        "front": "ambassador",
+        "back": "Botschafter/in",
+        "note": "S. 52"
+      },
+      {
+        "front": "label",
+        "back": "Aufkleber, Etikett",
+        "note": "S. 53"
+      },
+      {
+        "front": "category",
+        "back": "Kategorie, Klasse",
+        "note": "S. 53"
+      },
+      {
+        "front": "bodycare",
+        "back": "Körperpflege",
+        "note": "S. 53"
+      },
+      {
+        "front": "cosmetics",
+        "back": "Kosmetik(a)",
+        "note": "S. 53"
+      },
+      {
+        "front": "healthcare",
+        "back": "Gesundheit(sfürsorge)",
+        "note": "S. 53"
+      },
+      {
+        "front": "pea",
+        "back": "Erbse",
+        "note": "S. 53"
+      },
+      {
+        "front": "shampoo",
+        "back": "Shampoo",
+        "note": "S. 53"
+      },
+      {
+        "front": "India",
+        "back": "Indien",
+        "note": "S. 53"
+      },
+      {
+        "front": "Hindi",
+        "back": "Hindi",
+        "note": "S. 53"
+      },
+      {
+        "front": "dislike",
+        "back": "Abneigung",
+        "note": "S. 54"
+      },
+      {
+        "front": "impatient",
+        "back": "ungeduldig",
+        "note": "S. 54"
+      },
+      {
+        "front": "boutique",
+        "back": "Boutique",
+        "note": "S. 54"
+      },
+      {
+        "front": "jeans",
+        "back": "Jeans",
+        "note": "S. 54"
+      },
+      {
+        "front": "American",
+        "back": "amerikanisch",
+        "note": "S. 54"
+      },
+      {
+        "front": "store",
+        "back": "Laden, Geschäft",
+        "note": "S. 54"
+      },
+      {
+        "front": "bargain",
+        "back": "(günstiges) Angebot, Schnäppchen",
+        "note": "S. 54"
+      },
+      {
+        "front": "designer",
+        "back": "Designer/in",
+        "note": "S. 54"
+      },
+      {
+        "front": "quality",
+        "back": "Qualität",
+        "note": "S. 54"
+      },
+      {
+        "front": "to be worth",
+        "back": "wert sein",
+        "note": "S. 54"
+      },
+      {
+        "front": "average",
+        "back": "Durchschnitt, durchschnittlich",
+        "note": "S. 54"
+      },
+      {
+        "front": "to translate",
+        "back": "übersetzen, übertragen",
+        "note": "S. 55"
+      },
+      {
+        "front": "term",
+        "back": "Bezeichnung, Ausdruck",
+        "note": "S. 55"
+      },
+      {
+        "front": "to argue",
+        "back": "(sich) streiten",
+        "note": "S. 55"
+      }
+    ]
+  },
+  {
+    "id": "jobfit_unit6",
+    "title": "Jobfit Unit 6: Globalisierung, Berufe & Alltag",
+    "subtitle": "AVW Englisch • S. 56–65",
+    "level": "BFW 1",
+    "icon": "🌐",
+    "desc": "Outsourcing, Wirtschaft, Arbeitswelt, Handwerk, Einwanderung, Essen & Alltag.",
+    "count": 126,
+    "words": [
+      {
+        "front": "original",
+        "back": "Original",
+        "note": "S. 56"
+      },
+      {
+        "front": "pirate",
+        "back": "Pirat",
+        "note": "S. 56"
+      },
+      {
+        "front": "nowadays",
+        "back": "heutzutage",
+        "note": "S. 56"
+      },
+      {
+        "front": "guarantee",
+        "back": "Garantie",
+        "note": "S. 56"
+      },
+      {
+        "front": "China",
+        "back": "China",
+        "note": "S. 56"
+      },
+      {
+        "front": "European",
+        "back": "europäisch",
+        "note": "S. 56"
+      },
+      {
+        "front": "outsourcing",
+        "back": "Auslagern (von Arbeitsprozessen)",
+        "note": "S. 56"
+      },
+      {
+        "front": "Rome",
+        "back": "Rom",
+        "note": "S. 56"
+      },
+      {
+        "front": "Turin",
+        "back": "Turin",
+        "note": "S. 56"
+      },
+      {
+        "front": "Milan",
+        "back": "Mailand",
+        "note": "S. 56"
+      },
+      {
+        "front": "to replace",
+        "back": "ersetzen, austauschen",
+        "note": "S. 56"
+      },
+      {
+        "front": "handmade",
+        "back": "handgemacht, -gefertigt",
+        "note": "S. 56"
+      },
+      {
+        "front": "Chinese",
+        "back": "chinesisch",
+        "note": "S. 56"
+      },
+      {
+        "front": "immigrant",
+        "back": "Einwanderer, Einwanderin",
+        "note": "S. 56"
+      },
+      {
+        "front": "cheaply",
+        "back": "billig",
+        "note": "S. 56"
+      },
+      {
+        "front": "elsewhere",
+        "back": "anderswo, woanders",
+        "note": "S. 56"
+      },
+      {
+        "front": "foreign",
+        "back": "ausländisch, fremd",
+        "note": "S. 56"
+      },
+      {
+        "front": "production",
+        "back": "Produktion, Herstellung",
+        "note": "S. 57"
+      },
+      {
+        "front": "comparison",
+        "back": "Vergleich, Steigerung",
+        "note": "S. 57"
+      },
+      {
+        "front": "worse",
+        "back": "schlechter, schlimmer",
+        "note": "S. 57"
+      },
+      {
+        "front": "adjective",
+        "back": "Adjektiv, Eigenschaftswort",
+        "note": "S. 57"
+      },
+      {
+        "front": "pretty",
+        "back": "hübsch",
+        "note": "S. 57"
+      },
+      {
+        "front": "Asian",
+        "back": "asiatisch",
+        "note": "S. 57"
+      },
+      {
+        "front": "Japanese",
+        "back": "japanisch",
+        "note": "S. 57"
+      },
+      {
+        "front": "sunglasses",
+        "back": "Sonnenbrille",
+        "note": "S. 57"
+      },
+      {
+        "front": "sales assistant",
+        "back": "Verkäufer/in",
+        "note": "S. 58"
+      },
+      {
+        "front": "clothing",
+        "back": "Bekleidung, Kleidung",
+        "note": "S. 58"
+      },
+      {
+        "front": "blouse",
+        "back": "Bluse",
+        "note": "S. 58"
+      },
+      {
+        "front": "lovely",
+        "back": "schon, hübsch",
+        "note": "S. 58"
+      },
+      {
+        "front": "latest",
+        "back": "neueste",
+        "note": "S. 58"
+      },
+      {
+        "front": "shirt",
+        "back": "Hemd",
+        "note": "S. 58"
+      },
+      {
+        "front": "trousers",
+        "back": "Hose(n)",
+        "note": "S. 58"
+      },
+      {
+        "front": "skirt",
+        "back": "Rock",
+        "note": "S. 58"
+      },
+      {
+        "front": "jacket",
+        "back": "Jacke, Jackett",
+        "note": "S. 58"
+      },
+      {
+        "front": "sky",
+        "back": "Himmel",
+        "note": "S. 58"
+      },
+      {
+        "front": "gap",
+        "back": "Lücke",
+        "note": "S. 59"
+      },
+      {
+        "front": "baker",
+        "back": "Bäcker/in",
+        "note": "S. 59"
+      },
+      {
+        "front": "luckily",
+        "back": "glücklicherweise, zum Glück",
+        "note": "S. 59"
+      },
+      {
+        "front": "throughout",
+        "back": "die ganze Zeit hindurch, während",
+        "note": "S. 59"
+      },
+      {
+        "front": "break",
+        "back": "Pause",
+        "note": "S. 59"
+      },
+      {
+        "front": "to count",
+        "back": "zahlen",
+        "note": "S. 59"
+      },
+      {
+        "front": "opening times",
+        "back": "Öffnungszeiten",
+        "note": "S. 59"
+      },
+      {
+        "front": "placement",
+        "back": "Praktikum",
+        "note": "S. 59"
+      },
+      {
+        "front": "sales",
+        "back": "Schluss-, Ausverkauf",
+        "note": "S. 59"
+      },
+      {
+        "front": "traditionally",
+        "back": "traditionell",
+        "note": "S. 59"
+      },
+      {
+        "front": "queue",
+        "back": "(Warte-)Schlange",
+        "note": "S. 59"
+      },
+      {
+        "front": "adventure",
+        "back": "Abenteuer",
+        "note": "S. 59"
+      },
+      {
+        "front": "to unlock",
+        "back": "aufschließen",
+        "note": "S. 59"
+      },
+      {
+        "front": "purchase",
+        "back": "(Ein-)Kauf",
+        "note": "S. 59"
+      },
+      {
+        "front": "super",
+        "back": "super, großartig",
+        "note": "S. 59"
+      },
+      {
+        "front": "digital",
+        "back": "digital",
+        "note": "S. 59"
+      },
+      {
+        "front": "megapixel",
+        "back": "Megapixel",
+        "note": "S. 59"
+      },
+      {
+        "front": "guilty",
+        "back": "schuldbewusst",
+        "note": "S. 59"
+      },
+      {
+        "front": "reborn",
+        "back": "wiedergeboren",
+        "note": "S. 59"
+      },
+      {
+        "front": "builder",
+        "back": "Bauunternehmer/in",
+        "note": "S. 59"
+      },
+      {
+        "front": "to knock down",
+        "back": "abreißen",
+        "note": "S. 59"
+      },
+      {
+        "front": "to rebuild",
+        "back": "wieder aufbauen",
+        "note": "S. 59"
+      },
+      {
+        "front": "further",
+        "back": "weiter",
+        "note": "S. 59"
+      },
+      {
+        "front": "noisy",
+        "back": "laut, lärmend",
+        "note": "S. 59"
+      },
+      {
+        "front": "motorway",
+        "back": "Autobahn",
+        "note": "S. 59"
+      },
+      {
+        "front": "to shake",
+        "back": "klirren, zittern",
+        "note": "S. 59"
+      },
+      {
+        "front": "lorry",
+        "back": "Lastwagen, Lkw",
+        "note": "S. 59"
+      },
+      {
+        "front": "crack",
+        "back": "Riss, Sprung, Spalt(e)",
+        "note": "S. 59"
+      },
+      {
+        "front": "shabby",
+        "back": "schäbig",
+        "note": "S. 59"
+      },
+      {
+        "front": "uncomfortable",
+        "back": "unbequem, ungemütlich",
+        "note": "S. 59"
+      },
+      {
+        "front": "peaceful",
+        "back": "friedlich, ruhig",
+        "note": "S. 59"
+      },
+      {
+        "front": "sturdy",
+        "back": "massiv, fest",
+        "note": "S. 59"
+      },
+      {
+        "front": "landlord",
+        "back": "Wirt",
+        "note": "S. 59"
+      },
+      {
+        "front": "traditional",
+        "back": "traditionell",
+        "note": "S. 59"
+      },
+      {
+        "front": "darts",
+        "back": "Darts, Pfeilwurfspiel",
+        "note": "S. 59"
+      },
+      {
+        "front": "pool",
+        "back": "(Pool-)Billard",
+        "note": "S. 59"
+      },
+      {
+        "front": "live",
+        "back": "live",
+        "note": "S. 59"
+      },
+      {
+        "front": "excellent",
+        "back": "ausgezeichnet, hervorragend",
+        "note": "S. 59"
+      },
+      {
+        "front": "Thai",
+        "back": "Thai(länder/in)",
+        "note": "S. 59"
+      },
+      {
+        "front": "choice",
+        "back": "Auswahl",
+        "note": "S. 59"
+      },
+      {
+        "front": "cuisine",
+        "back": "Küche, Kochkunst",
+        "note": "S. 59"
+      },
+      {
+        "front": "newly",
+        "back": "neu",
+        "note": "S. 59"
+      },
+      {
+        "front": "hectic",
+        "back": "hektisch",
+        "note": "S. 59"
+      },
+      {
+        "front": "proud",
+        "back": "stolz",
+        "note": "S. 62"
+      },
+      {
+        "front": "to receive",
+        "back": "erhalten, bekommen",
+        "note": "S. 62"
+      },
+      {
+        "front": "award",
+        "back": "Auszeichnung, Preis",
+        "note": "S. 62"
+      },
+      {
+        "front": "to serve",
+        "back": "servieren, anbieten",
+        "note": "S. 62"
+      },
+      {
+        "front": "to attract",
+        "back": "anziehen, anlocken",
+        "note": "S. 62"
+      },
+      {
+        "front": "dairy",
+        "back": "Milch-",
+        "note": "S. 63"
+      },
+      {
+        "front": "nut",
+        "back": "Nuss",
+        "note": "S. 63"
+      },
+      {
+        "front": "protein",
+        "back": "Protein",
+        "note": "S. 63"
+      },
+      {
+        "front": "sausage",
+        "back": "(Brat-)Wurst, Würstchen",
+        "note": "S. 63"
+      },
+      {
+        "front": "carbohydrate",
+        "back": "Kohle(n)hydrat",
+        "note": "S. 63"
+      },
+      {
+        "front": "vitamin",
+        "back": "Vitamin",
+        "note": "S. 63"
+      },
+      {
+        "front": "cucumber",
+        "back": "Gurke",
+        "note": "S. 63"
+      },
+      {
+        "front": "France",
+        "back": "Frankreich",
+        "note": "S. 63"
+      },
+      {
+        "front": "snail",
+        "back": "Schnecke",
+        "note": "S. 63"
+      },
+      {
+        "front": "lemon",
+        "back": "Zitrone",
+        "note": "S. 63"
+      },
+      {
+        "front": "to contain",
+        "back": "enthalten",
+        "note": "S. 63"
+      },
+      {
+        "front": "strawberry",
+        "back": "Erdbeere",
+        "note": "S. 63"
+      },
+      {
+        "front": "lifestyle",
+        "back": "Lebensstil, Lifestyle",
+        "note": "S. 64"
+      },
+      {
+        "front": "fitness",
+        "back": "Fitness, Kondition",
+        "note": "S. 64"
+      },
+      {
+        "front": "trainer",
+        "back": "Trainer/in",
+        "note": "S. 64"
+      },
+      {
+        "front": "nutrition",
+        "back": "Ernährung",
+        "note": "S. 64"
+      },
+      {
+        "front": "to offer",
+        "back": "(an)bieten",
+        "note": "S. 64"
+      },
+      {
+        "front": "overweight",
+        "back": "übergewichtig",
+        "note": "S. 64"
+      },
+      {
+        "front": "to lose weight",
+        "back": "abnehmen",
+        "note": "S. 64"
+      },
+      {
+        "front": "daily",
+        "back": "täglich",
+        "note": "S. 64"
+      },
+      {
+        "front": "physical",
+        "back": "körperlich",
+        "note": "S. 64"
+      },
+      {
+        "front": "stairs",
+        "back": "Treppe(n)",
+        "note": "S. 64"
+      },
+      {
+        "front": "housework",
+        "back": "Hausarbeit(en)",
+        "note": "S. 64"
+      },
+      {
+        "front": "Frisbee",
+        "back": "Wurfscheibe",
+        "note": "S. 64"
+      },
+      {
+        "front": "to improve",
+        "back": "verbessern",
+        "note": "S. 64"
+      },
+      {
+        "front": "salt",
+        "back": "Salz",
+        "note": "S. 64"
+      },
+      {
+        "front": "fibre",
+        "back": "Faser, Ballaststoff",
+        "note": "S. 64"
+      },
+      {
+        "front": "lean",
+        "back": "mager",
+        "note": "S. 64"
+      },
+      {
+        "front": "cereal",
+        "back": "Getreideflocken, Müsli",
+        "note": "S. 64"
+      },
+      {
+        "front": "expression",
+        "back": "Ausdruck",
+        "note": "S. 64"
+      },
+      {
+        "front": "definition",
+        "back": "Definition",
+        "note": "S. 64"
+      },
+      {
+        "front": "heavy",
+        "back": "schwer",
+        "note": "S. 64"
+      },
+      {
+        "front": "health",
+        "back": "Gesundheit(szustand)",
+        "note": "S. 64"
+      },
+      {
+        "front": "client",
+        "back": "Kunde/Kundin",
+        "note": "S. 65"
+      },
+      {
+        "front": "diet",
+        "back": "Ernährung, Diät(kost)",
+        "note": "S. 65"
+      },
+      {
+        "front": "to mind",
+        "back": "etw dagegen haben",
+        "note": "S. 65"
+      },
+      {
+        "front": "toast",
+        "back": "Toast",
+        "note": "S. 65"
+      },
+      {
+        "front": "fried",
+        "back": "gebraten",
+        "note": "S. 65"
+      },
+      {
+        "front": "egg",
+        "back": "Ei",
+        "note": "S. 65"
+      },
+      {
+        "front": "bacon",
+        "back": "Schinkenspeck",
+        "note": "S. 65"
+      },
+      {
+        "front": "North",
+        "back": "Norden",
+        "note": "S. 65"
+      },
+      {
+        "front": "Scotland",
+        "back": "Schottland",
+        "note": "S. 65"
+      },
+      {
+        "front": "midday",
+        "back": "Mittag, Mittags-",
+        "note": "S. 65"
+      }
+    ]
+  }
+];
