@@ -390,12 +390,12 @@ class DataManager {
 // ==========================================
 class AutoUpdateSystem {
   static BFW_RAW_URL = "https://raw.githubusercontent.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/main/www/bfw_catalog.json";
-  static MEISTER_RAW_URL = "https://raw.githubusercontent.com/Lauju1909/VokabelMeister-Android/main/www/vokabeln.json";
+  static MEISTER_RAW_URL = "https://raw.githubusercontent.com/Lauju1909/Lernplatform-Android/main/www/vokabeln.json";
   static VERSION_URL = "version.json";
 
   static REPOS = [
     { name: "VokabelStar", repo: "Lauju1909/VokabelStar-Android" },
-    { name: "VokabelMeister", repo: "Lauju1909/VokabelMeister-Android" },
+    { name: "Lernplattform", repo: "Lauju1909/Lernplatform-Android" },
     { name: "BFW Vokabel-Verwaltung", repo: "Lauju1909/BFW-Wirtschaftsenglisch-Android" }
   ];
 
@@ -404,7 +404,7 @@ class AutoUpdateSystem {
     const banner = document.getElementById("update-banner");
 
     try {
-      if (statusEl) statusEl.textContent = "Prüfe auf Updates von VokabelStar, VokabelMeister & BFW...";
+      if (statusEl) statusEl.textContent = "Prüfe auf Updates von VokabelStar, Lernplattform & BFW...";
       const cacheBuster = "?t=" + Date.now();
 
       let changesDetected = false;
