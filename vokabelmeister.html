@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="color-scheme" content="dark">
+  <title>VokabelMeister – Barrierefreier Schriftlicher Vokabeltrainer</title>
+  <link rel="stylesheet" href="vokabelmeister.css">
+  <!-- BFW Vocabulary Catalog & Defaults -->
+  <script src="bfw_catalog.js"></script>
+  <script src="vokabelmeister_data.js"></script>
+  <!-- Libraries for DOCX and Excel parsing -->
+  <script src="xlsx.full.min.js"></script>
+  <script src="mammoth.browser.min.js"></script>
+</head>
+<body>
+  <!-- Portal Cross-Navigation -->
+  <nav class="portal-nav-bar" style="background: #111; color: #fff; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-weight: 700; font-family: sans-serif; border-bottom: 2px solid #38BDF8;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 1.2rem;">✍️</span>
+      <span><strong>VokabelMeister Web</strong> (Schriftlicher Trainer)</span>
+    </div>
+    <div style="display: flex; gap: 14px; align-items: center;">
+      <a href="index.html" style="color: #38BDF8; text-decoration: none; font-weight: bold;">🏠 Portal-Startseite</a>
+      <a href="vokabelstar.html" style="color: #58CC02; text-decoration: none; font-weight: bold;">🦉 Zu VokabelStar (Duolingo-Modus)</a>
+    </div>
+  </nav>
+
+  <!-- Screenreader Live Announcer für NVDA & Android TalkBack -->
+  <div id="sr-announcer" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Skip-Link für Barrierefreiheit -->
+  <a href="#main-content" class="skip-link">Direkt zum Hauptinhalt springen</a>
+
+  <div class="app-container">
+    <!-- Kopfzeile mit App-Titel & Status -->
+    <header class="app-header" role="banner">
+      <div class="header-left">
+        <h1 class="app-title">
+          <span class="app-logo" aria-hidden="true">📖</span>
+          VokabelMeister
+        </h1>
+        <span class="app-subtitle">Barrierefreier Schriftlicher Trainer</span>
+      </div>
+      <div class="header-stats" id="session-stats-container" aria-label="Sitzungs-Statistik">
+        <div class="stat-badge" title="Gelernt in dieser Sitzung">
+          <span class="stat-icon" aria-hidden="true">🎯</span>
+          <span id="session-counter">0</span>
+        </div>
+        <div class="stat-badge" title="Erfolgsquote">
+          <span class="stat-icon" aria-hidden="true">📈</span>
+          <span id="session-accuracy">--%</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-bar" role="navigation" aria-label="Hauptnavigation">
+      <button class="nav-tab active" data-tab="tab-train" id="btn-tab-train" aria-selected="true" role="tab" aria-controls="tab-train">
+        <span class="nav-icon" aria-hidden="true">✍️</span>
+        <span class="nav-label">Schriftliche Abfrage</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-kategorien" id="btn-tab-kategorien" aria-selected="false" role="tab" aria-controls="tab-kategorien">
+        <span class="nav-icon" aria-hidden="true">🏷️</span>
+        <span class="nav-label">Kategorien</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-vokabeln" id="btn-tab-vokabeln" aria-selected="false" role="tab" aria-controls="tab-vokabeln">
+        <span class="nav-icon" aria-hidden="true">📋</span>
+        <span class="nav-label">Vokabeln (<span id="total-count-badge">0</span>)</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-import" id="btn-tab-import" aria-selected="false" role="tab" aria-controls="tab-import">
+        <span class="nav-icon" aria-hidden="true">📥</span>
+        <span class="nav-label">Import & Export</span>
+      </button>
+      <button class="nav-tab" data-tab="tab-settings" id="btn-tab-settings" aria-selected="false" role="tab" aria-controls="tab-settings">
+        <span class="nav-icon" aria-hidden="true">⚙️</span>
+        <span class="nav-label">Einstellungen</span>
+      </button>
+    </nav>
+
+    <!-- Hauptinhalt -->
+    <main id="main-content" class="main-content" role="main">
+
+      <!-- TAB 1: SCHRIFTLICHE ABFRAGE (Kern der App) -->
+      <section id="tab-train" class="tab-panel active" role="tabpanel" aria-labelledby="btn-tab-train">
+        <div class="card abfrage-card">
+          <!-- Kategorie-Badge & Richtungsanzeige -->
+          <div class="abfrage-top-bar">
+            <span class="badge category-badge" id="current-cat-badge">🌍 Sprache</span>
+            <span class="badge direction-badge" id="current-dir-badge">Standard (A ➔ B)</span>
+            <span class="card-weight-info" id="current-weight-badge" title="Erfolgsquote dieser Vokabel">Quote: 0%</span>
+          </div>
+
+          <!-- Fragestellung -->
+          <div class="question-container">
+            <div class="question-prompt" id="question-prompt">Wie lautet die Übersetzung von:</div>
+            <div class="question-term-row">
+              <h2 class="question-term" id="question-term" tabindex="0">Lädt Vokabeln …</h2>
+              <button type="button" id="btn-speak-question" class="btn-icon" aria-label="Begriff anhören" title="Aussprache anhören">
+                <span aria-hidden="true">🔊</span>
+              </button>
+            </div>
+            <div class="question-context-info" id="question-lang-info">Englisch ➔ Deutsch</div>
+          </div>
+
+          <!-- Eingabeformular für die schriftliche Antwort -->
+          <form id="answer-form" class="answer-form" onsubmit="return false;">
+            <label for="answer-input" class="answer-label">Deine schriftliche Antwort:</label>
+            <div class="input-row">
+              <input 
+                type="text" 
+                id="answer-input" 
+                class="answer-input" 
+                placeholder="Antwort hier eintippen …" 
+                autocomplete="off" 
+                autocorrect="off" 
+                autocapitalize="none" 
+                spellcheck="false" 
+                enterkeyhint="go"
+                aria-describedby="answer-hint"
+              >
+              <button type="button" id="btn-clear-input" class="btn-clear" aria-label="Eingabe leeren" title="Eingabe leeren" style="display: none;">✕</button>
+            </div>
+            <div id="answer-hint" class="input-hint">Drücke <kbd>Enter</kbd> zum Prüfen</div>
+
+            <!-- Aktionsknöpfe -->
+            <div class="action-buttons-row">
+              <button type="button" id="btn-submit-answer" class="btn btn-primary btn-large">
+                <span class="btn-icon" aria-hidden="true">✔️</span>
+                <span>Antwort prüfen (Enter)</span>
+              </button>
+              <button type="button" id="btn-skip-answer" class="btn btn-secondary">
+                <span>Überspringen</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Rückmeldung / Feedback-Bereich (nach Beantwortung) -->
+          <div id="feedback-panel" class="feedback-panel" style="display: none;" tabindex="0" role="region" aria-label="Ergebnis-Rückmeldung">
+            <div class="feedback-header" id="feedback-header">
+              <span class="feedback-icon" id="feedback-icon" aria-hidden="true">✅</span>
+              <h3 class="feedback-title" id="feedback-title">Richtig!</h3>
+            </div>
+
+            <div class="feedback-details">
+              <div class="feedback-row" id="row-expected-answer">
+                <span class="detail-label">Erwartete Antwort:</span>
+                <span class="detail-value highlight" id="feedback-expected"></span>
+                <button type="button" id="btn-speak-answer" class="btn-icon-small" aria-label="Lösung vorlesen" title="Lösung vorlesen">
+                  <span aria-hidden="true">🔊</span>
+                </button>
+              </div>
+              <div class="feedback-row" id="row-user-answer" style="display: none;">
+                <span class="detail-label">Deine Eingabe:</span>
+                <span class="detail-value" id="feedback-user"></span>
+              </div>
+            </div>
+
+            <!-- Motivationsspruch basierend auf Score -->
+            <div class="motivation-banner" id="motivation-banner">
+              Super – fast perfekt! ⭐
+            </div>
+
+            <!-- Vokabel-Statistik nach Abfrage -->
+            <div class="vocab-stats-row" id="vocab-stats-row">
+              Bisherige Erfolgsquote: <strong id="vocab-stats-text">0% (0 von 0)</strong>
+            </div>
+
+            <!-- Weiter-Knopf -->
+            <button type="button" id="btn-next-card" class="btn btn-primary btn-large" autofocus>
+              <span>Nächste Vokabel (Enter)</span>
+              <span class="btn-icon" aria-hidden="true">➔</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Schnellwahlschalter für Kategorien während des Trainings -->
+        <div class="quick-filter-bar">
+          <label for="quick-cat-select" class="quick-filter-label">Aktive Kategorie:</label>
+          <select id="quick-cat-select" class="form-select" aria-label="Kategorie für Training wählen">
+            <option value="ALL">🌟 Alle Kategorien zusammen üben</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- TAB 2: KATEGORIEN -->
+      <section id="tab-kategorien" class="tab-panel" role="tabpanel" aria-labelledby="btn-tab-kategorien">
+        <div class="section-header">
+          <h2>Kategorien verwalten</h2>
+          <p class="section-desc">Wähle gezielt Kategorien zum Lernen aus oder erstelle neue Themenbereiche.</p>
+        </div>
+
+        <!-- Neue Kategorie erstellen -->
+        <div class="card add-card">
+          <h3>Neue Kategorie anlegen</h3>
+          <form id="form-new-cat" class="form-grid">
+            <div class="form-group">
+              <label for="new-cat-name">Kategoriename *</label>
+              <input type="text" id="new-cat-name" required placeholder="z. B. Medizin, Recht, IT">
+            </div>
+            <div class="form-group">
+              <label for="new-cat-icon">Symbol / Emoji</label>
+              <input type="text" id="new-cat-icon" placeholder="🏷️" value="🏷️" maxlength="4">
+            </div>
+            <div class="form-group full-width">
+              <label for="new-cat-desc">Beschreibung</label>
+              <input type="text" id="new-cat-desc" placeholder="Kurze Beschreibung des Themengebiets">
+            </div>
+            <div class="form-group">
+              <label for="new-cat-frage-front">Frage Vorderseite</label>
+              <input type="text" id="new-cat-frage-front" value="Wie lautet die Übersetzung von:">
+            </div>
+            <div class="form-group">
+              <label for="new-cat-frage-back">Frage Rückseite</label>
+              <input type="text" id="new-cat-frage-back" value="Welcher Begriff beschreibt folgendes:">
+            </div>
+            <div class="form-actions full-width">
+              <button type="submit" class="btn btn-primary">
+                <span>➕ Kategorie erstellen</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Liste der Kategorien -->
+        <div class="kategorien-grid" id="kategorien-list">
+          <!-- Dynamisch gefüllt -->
+        </div>
+      </section>
+
+      <!-- TAB 3: VOKABEL-VERWALTUNG -->
+      <section id="tab-vokabeln" class="tab-panel" role="tabpanel" aria-labelledby="btn-tab-vokabeln">
+        <div class="section-header">
+          <h2>Vokabeln verwalten & durchsuchen</h2>
+          <p class="section-desc">Finde, bearbeite oder ergänze Begriffe deiner Sammlung.</p>
+        </div>
+
+        <!-- Such- und Filterleiste -->
+        <div class="filter-controls">
+          <div class="search-box">
+            <input type="search" id="vocab-search-input" placeholder="🔍 Suchen nach Begriff oder Übersetzung …" aria-label="Vokabeln durchsuchen">
+          </div>
+          <div class="filter-select-box">
+            <select id="vocab-filter-cat" aria-label="Nach Kategorie filtern">
+              <option value="ALL">Alle Kategorien</option>
+            </select>
+          </div>
+          <button type="button" id="btn-open-add-vocab" class="btn btn-primary">
+            <span>➕ Neue Vokabel</span>
+          </button>
+        </div>
+
+        <!-- Neue Vokabel Modal / Inline Card -->
+        <div class="card add-vocab-card" id="add-vocab-box" style="display: none;">
+          <h3 id="add-vocab-title">Neue Vokabel hinzufügen</h3>
+          <form id="form-add-vocab" class="form-grid">
+            <input type="hidden" id="edit-vocab-idx" value="-1">
+            <div class="form-group">
+              <label for="vocab-input-cat">Kategorie *</label>
+              <select id="vocab-input-cat" required></select>
+            </div>
+            <div class="form-group">
+              <label for="vocab-input-lang-front">Sprache Begriff</label>
+              <input type="text" id="vocab-input-lang-front" value="Englisch" list="standard-sprachen">
+            </div>
+            <div class="form-group">
+              <label for="vocab-input-front">Begriff / Frage (Vorderseite) *</label>
+              <input type="text" id="vocab-input-front" required placeholder="z. B. assistance">
+            </div>
+            <div class="form-group">
+              <label for="vocab-input-lang-back">Sprache Antwort</label>
+              <input type="text" id="vocab-input-lang-back" value="Deutsch" list="standard-sprachen">
+            </div>
+            <div class="form-group full-width">
+              <label for="vocab-input-back">Bedeutung / Lösung (Rückseite) *</label>
+              <input type="text" id="vocab-input-back" required placeholder="z. B. Hilfe, Unterstützung">
+              <small class="field-hint">Tipp: Synonyme können durch Komma getrennt oder in Klammern (optional) gesetzt werden.</small>
+            </div>
+            <datalist id="standard-sprachen">
+              <option value="Englisch">
+              <option value="Deutsch">
+              <option value="Französisch">
+              <option value="Spanisch">
+              <option value="Italienisch">
+              <option value="Latein">
+              <option value="Russisch">
+              <option value="Japanisch">
+              <option value="Chinesisch">
+              <option value="Türkisch">
+            </datalist>
+            <div class="form-actions full-width">
+              <button type="submit" class="btn btn-primary" id="btn-save-vocab-submit">Speichern</button>
+              <button type="button" class="btn btn-secondary" id="btn-cancel-add-vocab">Abbrechen</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Vokabel-Tabelle -->
+        <div class="table-container">
+          <div class="table-summary" id="vocab-table-summary" aria-live="polite">0 Vokabeln gefunden</div>
+          <div class="table-scroll">
+            <table class="vocab-table" id="vocab-table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 25%;">Begriff (Vorderseite)</th>
+                  <th scope="col" style="width: 35%;">Bedeutung (Rückseite)</th>
+                  <th scope="col" style="width: 15%;">Kategorie</th>
+                  <th scope="col" style="width: 10%;">Quote</th>
+                  <th scope="col" style="width: 15%;">Aktionen</th>
+                </tr>
+              </thead>
+              <tbody id="vocab-tbody">
+                <!-- Dynamische Tabellenzeilen -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="pagination-bar" id="vocab-pagination">
+            <button type="button" id="btn-page-prev" class="btn btn-secondary btn-small" disabled>◀ Zurück</button>
+            <span id="pagination-info">Seite 1 von 1</span>
+            <button type="button" id="btn-page-next" class="btn btn-secondary btn-small" disabled>Weiter ▶</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: IMPORT & EXPORT -->
+      <section id="tab-import" class="tab-panel" role="tabpanel" aria-labelledby="btn-tab-import">
+        <div class="section-header">
+          <h2>Dateien importieren & exportieren</h2>
+          <p class="section-desc">Übertrage deine Vokabeln aus Word (.docx), Excel (.xlsx), Textdateien oder JSON.</p>
+        </div>
+
+        <div class="grid-2-cols">
+          <!-- Import Card -->
+          <div class="card">
+            <h3>📥 Datei importieren</h3>
+            <p>Unterstützt Word (.docx mit Tabelle oder Trennstrichen), Excel (.xlsx / .csv), Textdateien (.txt mit Trennern wie Tab, |, -) und VokabelMeister JSON.</p>
+            
+            <div class="form-group" style="margin-top: 16px;">
+              <label for="import-target-cat">Ziel-Kategorie für Import:</label>
+              <select id="import-target-cat"></select>
+            </div>
+
+            <div class="file-drop-area" id="file-drop-area">
+              <span class="file-icon" aria-hidden="true">📁</span>
+              <p>Datei hierher ziehen oder antippen</p>
+              <input type="file" id="file-input" accept=".docx,.xlsx,.xls,.csv,.txt,.json" class="file-input-hidden">
+              <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click();">
+                Datei auswählen
+              </button>
+            </div>
+
+            <div id="import-status-msg" class="status-msg" style="display: none;" role="status"></div>
+          </div>
+
+          <!-- Export Card -->
+          <div class="card">
+            <h3>📤 Daten sichern & exportieren</h3>
+            <p>Exportiere deine Vokabeldatenbank als JSON-Sicherung oder als tabellarische Textdatei.</p>
+
+            <div class="action-list" style="margin-top: 20px;">
+              <button type="button" id="btn-export-json" class="btn btn-primary full-width">
+                <span>💾 Vollständiges JSON-Backup exportieren</span>
+              </button>
+              <button type="button" id="btn-export-txt" class="btn btn-secondary full-width" style="margin-top: 10px;">
+                <span>📄 Als Textliste (.txt) exportieren</span>
+              </button>
+              <button type="button" id="btn-reset-stats" class="btn btn-secondary full-width" style="margin-top: 24px; color: #f0a500;">
+                <span>🔄 Nur Lernstatistiken zurücksetzen</span>
+              </button>
+              <button type="button" id="btn-reset-all" class="btn btn-danger full-width" style="margin-top: 10px;">
+                <span>🗑️ Alle Daten löschen & Standard laden</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: EINSTELLUNGEN -->
+      <section id="tab-settings" class="tab-panel" role="tabpanel" aria-labelledby="btn-tab-settings">
+        <div class="section-header">
+          <h2>Einstellungen & Barrierefreiheit</h2>
+          <p class="section-desc">Passe die schriftliche Abfrage und Hilfsfunktionen an deine Wünsche an.</p>
+        </div>
+
+        <div class="card">
+          <div class="settings-list">
+            <!-- Abfragerichtung -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="setting-direction" class="setting-title">Abfragerichtung</label>
+                <div class="setting-desc">Welche Seite wird vorgegeben und welche musst du eintippen?</div>
+              </div>
+              <div class="setting-control">
+                <select id="setting-direction" class="form-select">
+                  <option value="standard">Standard: Begriff ➔ Bedeutung</option>
+                  <option value="reverse">Umgekehrt: Bedeutung ➔ Begriff</option>
+                  <option value="random">Zufällig gemischt</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Vorlesefunktion (TTS) -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="setting-tts" class="setting-title">Automatische Sprachausgabe (TTS)</label>
+                <div class="setting-desc">Liest den gefragten Begriff beim Erscheinen automatisch in der passenden Sprache vor.</div>
+              </div>
+              <div class="setting-control">
+                <input type="checkbox" id="setting-tts" class="toggle-switch">
+              </div>
+            </div>
+
+            <!-- Aussprache-Geschwindigkeit -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="setting-tts-speed" class="setting-title">Sprach-Geschwindigkeit</label>
+                <div class="setting-desc">Tempo der Sprachausgabe regulieren.</div>
+              </div>
+              <div class="setting-control">
+                <select id="setting-tts-speed" class="form-select">
+                  <option value="0.8">0.8x (Langsam & deutlich)</option>
+                  <option value="1.0" selected>1.0x (Normal)</option>
+                  <option value="1.2">1.2x (Etwas schneller)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Tippfehler-Toleranz -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="setting-typo-tolerance" class="setting-title">Intelligente Tippfehler-Toleranz</label>
+                <div class="setting-desc">Damerau-Levenshtein Toleranz: Erkennt Buchstabendreher und kleine Tippfehler als "Fast richtig".</div>
+              </div>
+              <div class="setting-control">
+                <input type="checkbox" id="setting-typo-tolerance" class="toggle-switch" checked>
+              </div>
+            </div>
+
+            <!-- Hoher Kontrast -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="setting-high-contrast" class="setting-title">Modus für hohen Kontrast</label>
+                <div class="setting-desc">Schärfere Kontraste, verstärkte Umrandungen und maximale Lesbarkeit.</div>
+              </div>
+              <div class="setting-control">
+                <input type="checkbox" id="setting-high-contrast" class="toggle-switch">
+              </div>
+            </div>
+
+            <!-- Schriftgröße -->
+            <div class="setting-item">
+              <div class="setting-info">
+                <label for="setting-font-size" class="setting-title">Schriftgröße</label>
+                <div class="setting-desc">Erhöht die Schriftgröße in der gesamten Anwendung.</div>
+              </div>
+              <div class="setting-control">
+                <select id="setting-font-size" class="form-select">
+                  <option value="normal" selected>Normal (Standard)</option>
+                  <option value="large">Groß (+20%)</option>
+                  <option value="xlarge">Sehr groß (+40%)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card info-card" style="margin-top: 16px;">
+          <h3>ℹ️ Über VokabelMeister</h3>
+          <p>Entwickelt nach den Grundsätzen barrierefreier Software und der Damerau-Levenshtein-Distanz-Erkennung. Alle Daten verbleiben zu 100% lokal auf deinem Gerät ohne Tracking oder Internet-Zwang.</p>
+          <p><small>Version 1.0.0 • Kompatibel mit TalkBack, NVDA & Tastatursteuerung</small></p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="vokabelmeister.js"></script>
+</body>
+</html>
