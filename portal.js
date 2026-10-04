@@ -509,6 +509,18 @@ class PortalApp {
     this.renderTopics();
     this.setupEventListeners();
 
+    // Check URL hash for direct tab switching (e.g. #downloads or #settings)
+    const hash = window.location.hash.replace("#", "");
+    if (hash && ["topics", "star", "meister", "import", "settings", "downloads"].includes(hash)) {
+      this.switchTab(hash);
+    }
+    window.addEventListener("hashchange", () => {
+      const newHash = window.location.hash.replace("#", "");
+      if (newHash && ["topics", "star", "meister", "import", "settings", "downloads"].includes(newHash)) {
+        this.switchTab(newHash);
+      }
+    });
+
     // Check for online updates automatically after 1 second
     setTimeout(() => {
       AutoUpdateSystem.checkForUpdates();
@@ -1402,5 +1414,7 @@ class PortalApp {
 let portalApp = null;
 window.addEventListener("DOMContentLoaded", () => {
   portalApp = new PortalApp();
+  window.portalApp = portalApp;
+  window.portal = portalApp;
   portalApp.init();
 });

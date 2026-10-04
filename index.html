@@ -55,6 +55,9 @@
       <button class="nav-tab-btn" data-tab="import" aria-label="Eigene Vokabeln importieren und exportieren">
         📥 Import & Export
       </button>
+      <button class="nav-tab-btn" data-tab="downloads" aria-label="Downloads und Installationsanleitungen für Android und Windows">
+        📲 Downloads & Anleitungen
+      </button>
       <button class="nav-tab-btn" data-tab="settings" aria-label="Einstellungen und Barrierefreiheit">
         ⚙️ Einstellungen
       </button>
@@ -112,6 +115,21 @@
               ✍️ VokabelMeister-Seite öffnen ➔
             </a>
           </div>
+        </div>
+
+        <!-- Download Banner Callout -->
+        <div class="card" style="margin-bottom: 30px; border: 2px dashed var(--primary); background: rgba(88, 204, 2, 0.08); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+          <div>
+            <h3 style="font-size: var(--font-size-base); font-weight: 900; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+              <span>📲</span> Apps für Android &amp; Windows herunterladen
+            </h3>
+            <p style="color: var(--text-secondary); margin: 0; font-size: 0.95rem;">
+              Lieber als eigenständige App auf dem Smartphone oder PC lernen? Hol dir die APK, den Neo Store / F-Droid Paketquellen-Link oder die Windows-Version (.exe).
+            </p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="window.portal &amp;&amp; window.portal.switchTab('downloads')" aria-label="Zu den Downloads und Installationsanleitungen springen">
+            Zu den Downloads &amp; Anleitungen ➔
+          </button>
         </div>
 
         <h2 style="font-size: var(--font-size-xl); font-weight: 900; margin-bottom: 6px;">
@@ -273,6 +291,267 @@
           </label>
         </div>
       </div>
+    </section>
+
+    <!-- TAB 6: DOWNLOADS & ANLEITUNGEN (ANDROID & WINDOWS) -->
+    <section id="pane-downloads" class="tab-pane" role="tabpanel" aria-label="Downloads und Installationsanleitungen für Android und Windows">
+      <div style="margin-bottom: 24px;">
+        <h2 style="font-size: var(--font-size-xl); font-weight: 900; margin-bottom: 8px;">
+          📲 Downloads &amp; Installationsanleitungen
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 1.05rem;">
+          Alle Vokabel-Apps sind 100% kostenlos, werbefrei und quelloffen (Open Source). Du kannst sie entweder direkt im Browser nutzen oder als eigenständige App auf deinem <strong>Android-Smartphone</strong> oder <strong>Windows-Computer</strong> installieren.
+        </p>
+      </div>
+
+      <!-- Quick Download Cards Grid -->
+      <h3 style="font-size: var(--font-size-lg); font-weight: 900; margin-bottom: 14px;">
+        📦 Direkte Programm- &amp; App-Downloads
+      </h3>
+      <div class="grid-cols-3" style="margin-bottom: 32px;">
+
+        <!-- Card 1: VokabelStar -->
+        <article class="download-card" role="region" aria-label="Download VokabelStar">
+          <div>
+            <div style="font-size: 2.4rem; margin-bottom: 8px;" aria-hidden="true">🦉</div>
+            <h4 style="font-size: var(--font-size-lg); font-weight: 900; margin-bottom: 4px; color: var(--primary);">VokabelStar</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px;">
+              Spielerischer Duolingo-Stil mit Multiple Choice, Hör-Quiz, Paare-Finden, Wort-Baukasten, Tages-Streaks und XP. Kein Tippzwang.
+            </p>
+
+            <div style="margin-bottom: 12px;">
+              <span class="os-badge android">🤖 Android (v1.2.0)</span>
+              <a href="https://github.com/Lauju1909/VokabelStar-Android/releases/download/v1.2.0/app-release.apk" class="btn btn-primary btn-sm" style="display: block; text-align: center; text-decoration: none; margin-top: 8px;">
+                ⬇️ APK herunterladen
+              </a>
+              <div style="font-size: 0.8rem; margin-top: 4px; text-align: center;">
+                <a href="https://github.com/Lauju1909/VokabelStar-Android/releases/latest" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+                  Release-Details auf GitHub ↗
+                </a>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-subtle);">
+              <span class="os-badge windows">💻 Windows (v1.1.0)</span>
+              <a href="https://github.com/Lauju1909/VokabelStar/releases/download/v1.1.0/VokabelStar.exe" class="btn btn-secondary btn-sm" style="display: block; text-align: center; text-decoration: none; margin-top: 8px;">
+                ⬇️ Windows .exe herunterladen
+              </a>
+              <div style="font-size: 0.8rem; margin-top: 4px; text-align: center;">
+                <a href="https://github.com/Lauju1909/VokabelStar/releases/latest" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+                  Release-Details auf GitHub ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: VokabelMeister -->
+        <article class="download-card" role="region" aria-label="Download VokabelMeister">
+          <div>
+            <div style="font-size: 2.4rem; margin-bottom: 8px;" aria-hidden="true">✍️</div>
+            <h4 style="font-size: var(--font-size-lg); font-weight: 900; margin-bottom: 4px; color: var(--secondary);">VokabelMeister</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px;">
+              Gezielter Schreibtrainer mit intelligenter Tippfehler-Toleranz („Fast richtig!“) und automatischer Klammerauflösung.
+            </p>
+
+            <div style="margin-bottom: 12px;">
+              <span class="os-badge android">🤖 Android (v1.2.0)</span>
+              <a href="https://github.com/Lauju1909/VokabelMeister-Android/releases/download/v1.2.0/app-release.apk" class="btn btn-primary btn-sm" style="display: block; text-align: center; text-decoration: none; margin-top: 8px;">
+                ⬇️ APK herunterladen
+              </a>
+              <div style="font-size: 0.8rem; margin-top: 4px; text-align: center;">
+                <a href="https://github.com/Lauju1909/VokabelMeister-Android/releases/latest" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+                  Release-Details auf GitHub ↗
+                </a>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-subtle);">
+              <span class="os-badge windows">💻 Windows (v1.0.0)</span>
+              <a href="https://github.com/Lauju1909/VokabelMeister/releases/download/v1.0.0/VokabelMeister.exe" class="btn btn-secondary btn-sm" style="display: block; text-align: center; text-decoration: none; margin-top: 8px;">
+                ⬇️ Windows .exe herunterladen
+              </a>
+              <div style="font-size: 0.8rem; margin-top: 4px; text-align: center;">
+                <a href="https://github.com/Lauju1909/VokabelMeister/releases/latest" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+                  Release-Details auf GitHub ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: BFW Vokabel-Verwaltung -->
+        <article class="download-card" role="region" aria-label="Download BFW Vokabel-Verwaltung">
+          <div>
+            <div style="font-size: 2.4rem; margin-bottom: 8px;" aria-hidden="true">💼</div>
+            <h4 style="font-size: var(--font-size-lg); font-weight: 900; margin-bottom: 4px; color: var(--accent-gold);">BFW Vokabel-Verwaltung</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 16px;">
+              Vokabel-Editor &amp; BFW Wirtschaftsenglisch Lektionen. Erstelle eigene Lerneinheiten und synchronisiere Wortschätze.
+            </p>
+
+            <div style="margin-bottom: 12px;">
+              <span class="os-badge android">🤖 Android (v1.2.0)</span>
+              <a href="https://github.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/releases/download/v1.2.0/app-release.apk" class="btn btn-primary btn-sm" style="display: block; text-align: center; text-decoration: none; margin-top: 8px;">
+                ⬇️ APK herunterladen
+              </a>
+              <div style="font-size: 0.8rem; margin-top: 4px; text-align: center;">
+                <a href="https://github.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/releases/latest" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+                  Release-Details auf GitHub ↗
+                </a>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border-subtle);">
+              <span class="os-badge windows">💻 Windows (v1.2.0)</span>
+              <a href="https://github.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/releases/download/v1.2.0/BFW_VokabelVerwaltung.exe" class="btn btn-secondary btn-sm" style="display: block; text-align: center; text-decoration: none; margin-top: 8px;">
+                ⬇️ Windows .exe herunterladen
+              </a>
+              <div style="font-size: 0.8rem; margin-top: 4px; text-align: center;">
+                <a href="https://github.com/Lauju1909/BFW-Wirtschaftsenglisch-Android/releases/latest" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">
+                  Release-Details auf GitHub ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- F-Droid / Neo Store Repository Card (Empfohlen für Android) -->
+      <section class="guide-box highlight" aria-labelledby="heading-fdroid">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 2rem;" aria-hidden="true">🏪</span>
+          <h3 id="heading-fdroid" style="font-size: var(--font-size-lg); font-weight: 900; margin: 0;">
+            Empfohlen für Android: Neo Store &amp; F-Droid Paketquelle
+          </h3>
+        </div>
+        <p style="color: var(--text-secondary); margin-bottom: 14px;">
+          Mit unserer offiziellen F-Droid/Neo Store Paketquelle werden alle 3 Apps auf deinem Smartphone <strong>automatisch aktualisiert</strong>, sobald neue Vokabeln, Lektionen oder Verbesserungen erscheinen!
+        </p>
+
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;">
+          <a href="fdroidrepos://lauju1909.github.io/fdroid-repo/fdroid/repo?fingerprint=6CB811B89526A24CE7D41FB3FB4045B9FD0541D2017F96127CA4C407D43FCF0F" class="btn btn-primary" style="text-decoration: none;">
+            📲 1-Klick: In Neo Store / F-Droid hinzufügen
+          </a>
+          <a href="https://lauju1909.github.io/fdroid-repo/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="text-decoration: none;">
+            🌐 Paketquellen-Webseite öffnen ↗
+          </a>
+        </div>
+
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          <strong>Manuelle Paketquellen-URL:</strong>
+          <div class="code-box">https://lauju1909.github.io/fdroid-repo/fdroid/repo</div>
+          <strong>Fingerabdruck (SHA-256):</strong>
+          <div class="code-box">6CB811B89526A24CE7D41FB3FB4045B9FD0541D2017F96127CA4C407D43FCF0F</div>
+        </div>
+      </section>
+
+      <!-- Step-by-Step Guide: Android -->
+      <section class="guide-box" aria-labelledby="heading-guide-android">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 2rem;" aria-hidden="true">🤖</span>
+          <h3 id="heading-guide-android" style="font-size: var(--font-size-lg); font-weight: 900; margin: 0;">
+            Schritt-für-Schritt Installationsanleitung: Android
+          </h3>
+        </div>
+
+        <h4 style="font-weight: 800; margin-top: 14px; color: var(--primary);">
+          Weg 1 (Empfohlen): Über Neo Store oder F-Droid mit automatischen Updates
+        </h4>
+        <ol class="step-list">
+          <li>
+            <strong>Neo Store oder F-Droid öffnen:</strong> Öffne die Neo Store (oder F-Droid) App auf deinem Android-Smartphone.
+          </li>
+          <li>
+            <strong>Paketquelle hinzufügen:</strong> Tippe entweder direkt oben auf den Button <em>„1-Klick: In Neo Store / F-Droid hinzufügen“</em> oder öffne in Neo Store die <em>Einstellungen ➔ Paketquellen (Repositories) ➔ Plus-Symbol (+)</em> und trage die Adresse <code>https://lauju1909.github.io/fdroid-repo/fdroid/repo</code> ein.
+          </li>
+          <li>
+            <strong>Aktualisieren:</strong> Wische in der App-Übersicht nach unten, um die neuen Paketquellen zu synchronisieren.
+          </li>
+          <li>
+            <strong>Installieren:</strong> Suche nach <em>„VokabelStar“</em>, <em>„VokabelMeister“</em> oder <em>„BFW Vokabel-Verwaltung“</em> und tippe auf <strong>Installieren</strong>.
+          </li>
+          <li>
+            <strong>Automatische Updates genießen:</strong> Du musst nie wieder manuell nach neuen Versionen suchen.
+          </li>
+        </ol>
+
+        <h4 style="font-weight: 800; margin-top: 20px; color: var(--primary);">
+          Weg 2: Direkte Installation über die APK-Datei
+        </h4>
+        <ol class="step-list">
+          <li>
+            <strong>APK herunterladen:</strong> Tippe oben bei der gewünschten App auf <strong>„APK herunterladen“</strong>.
+          </li>
+          <li>
+            <strong>Datei öffnen:</strong> Ziehe die Benachrichtigungsleiste nach unten und tippe auf die fertige Download-Benachrichtigung (oder öffne die App „Dateien“ / „Downloads“).
+          </li>
+          <li>
+            <strong>Unbekannte Quellen zulassen (nur beim ersten Mal nötig):</strong> Falls Android den Hinweis anzeigt <em>„Aus Sicherheitsgründen darf dein Smartphone keine unbekannten Apps aus dieser Quelle installieren“</em>:
+            <ul style="margin: 6px 0 6px 20px;">
+              <li>Tippe im Hinweis auf <strong>„Einstellungen“</strong>.</li>
+              <li>Aktiviere den Schalter <strong>„Apps aus dieser Quelle zulassen“</strong> (oder „Dieser Quelle vertrauen“).</li>
+              <li>Drücke die Zurück-Taste deines Smartphones.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Installation bestätigen:</strong> Tippe auf <strong>„Installieren“</strong> und anschließend auf <strong>„Öffnen“</strong>.
+          </li>
+          <li>
+            <strong>TalkBack-Barrierefreiheit:</strong> Alle Tasten und Eingaben sind barrierefrei angesagt und voll für Screenreader angepasst.
+          </li>
+        </ol>
+      </section>
+
+      <!-- Step-by-Step Guide: Windows -->
+      <section class="guide-box warning" aria-labelledby="heading-guide-windows">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+          <span style="font-size: 2rem;" aria-hidden="true">💻</span>
+          <h3 id="heading-guide-windows" style="font-size: var(--font-size-lg); font-weight: 900; margin: 0;">
+            Schritt-für-Schritt Installationsanleitung: Windows (10 &amp; 11)
+          </h3>
+        </div>
+
+        <ol class="step-list">
+          <li>
+            <strong>Programm herunterladen:</strong> Klicke oben auf die blaue Schaltfläche <strong>„Windows .exe herunterladen“</strong> (z. B. <code>VokabelStar.exe</code>, <code>VokabelMeister.exe</code> oder <code>BFW_VokabelVerwaltung.exe</code>).
+          </li>
+          <li>
+            <strong>Datei speichern:</strong> Speichere die Datei an einem beliebigen Ort (z. B. in deinem Ordner <em>Downloads</em> oder auf dem <em>Desktop</em>). Du benötigst keine komplizierte Installation – es handelt sich um ein portables Programm, das direkt startet!
+          </li>
+          <li>
+            <strong>Wichtiger Hinweis: Windows SmartScreen Warnung überwinden</strong>
+            <div class="card" style="margin: 8px 0; background: rgba(255, 200, 0, 0.1); border: 2px solid var(--accent-gold); padding: 14px;">
+              <p style="margin: 0 0 8px 0;">
+                ⚠️ <strong>Warum zeigt Windows beim ersten Start einen blauen Warnhinweis?</strong><br>
+                Unsere Programme sind kostenlose Open-Source-Software und nicht mit einem teuren Microsoft-Firmenzertifikat signiert. Windows zeigt daher vorsorglich: <em>„Der Computer wurde durch Windows geschützt – Von Windows Defender SmartScreen wurde der Start einer unbekannten App verhindert.“</em>
+              </p>
+              <p style="margin: 0; font-weight: bold;">
+                So startest du die App in 2 Klicks:
+              </p>
+              <ul style="margin: 6px 0 0 20px;">
+                <li>1. Klicke im blauen Fenster auf den Text <u><strong>„Weitere Informationen“</strong></u> (Screenreader / Tastatur: Mit der <code>Tab</code>-Taste ansteuern und <code>Enter</code> drücken).</li>
+                <li>2. Klicke anschließend auf den nun sichtbaren Button <u><strong>„Trotzdem ausführen“</strong></u> (oder mit <code>Tab</code> ansteuern und <code>Enter</code> drücken).</li>
+              </ul>
+              <p style="margin: 8px 0 0 0; font-size: 0.9rem; color: var(--text-secondary);">
+                ✔️ Windows merkt sich deine Entscheidung. Ab dem zweiten Start öffnet sich das Programm sofort per Doppelklick!
+              </p>
+            </div>
+          </li>
+          <li>
+            <strong>Barrierefreiheit &amp; Screenreader (NVDA / JAWS):</strong>
+            <p style="margin: 4px 0;">
+              Alle Windows-Apps sind komplett tastaturbedienbar und optimiert für Screenreader:
+            </p>
+            <ul style="margin: 6px 0 0 20px;">
+              <li>Mit der <code>Tab</code>-Taste und <code>Umschalt+Tab</code> wechselst du zwischen Eingabefeldern und Schaltflächen.</li>
+              <li>Mit der <code>Leertaste</code> oder <code>Eingabetaste (Enter)</code> aktivierst du Knöpfe.</li>
+              <li>In VokabelMeister kannst du sofort losschreiben und mit <code>Enter</code> prüfen.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
     </section>
 
   </main>
