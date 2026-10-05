@@ -70,6 +70,7 @@ const DEFAULT_DECKS = [
 class StorageManager {
   static KEY_DECKS = "vokabelstar_decks";
   static KEY_ACTIVE_DECK = "vokabelstar_active_deck";
+  static KEY_SELECTED_DECKS = "vokabelstar_selected_decks";
   static KEY_SETTINGS = "vokabelstar_settings";
   static KEY_PROGRESS = "vokabelstar_gamification";
 
@@ -126,35 +127,17 @@ class StorageManager {
   }
 
   static getDecks() {
-    let decks = [];
     const raw = localStorage.getItem(this.KEY_DECKS);
-    if (raw) {
-      try { decks = JSON.parse(raw); } catch (e) {}
+    if (!raw) {
+      this.saveDecks(DEFAULT_DECKS);
+      return DEFAULT_DECKS;
     }
-    if (!Array.isArray(decks) || decks.length === 0) {
-      decks = [...DEFAULT_DECKS];
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_DECKS;
+    } catch (e) {
+      return DEFAULT_DECKS;
     }
-    // Merge BFW Catalog
-    if (window.BFW_CATALOG && Array.isArray(window.BFW_CATALOG)) {
-      window.BFW_CATALOG.forEach(cat => {
-        const id = "bfw_" + cat.id;
-        if (!decks.find(d => d.id === id)) {
-          decks.push({
-            id: id,
-            title: `${cat.level}: ${cat.title}`,
-            lang: "en-US",
-            words: (cat.words || []).map((w, idx) => ({
-              id: `w_bfw_${cat.id}_${idx}`,
-              source: w.back,
-              target: w.front,
-              note: cat.subtitle,
-              box: 1
-            }))
-          });
-        }
-      });
-    }
-    return decks;
   }
 
   static saveDecks(decks) {
@@ -162,17 +145,41 @@ class StorageManager {
   }
 
   static getActiveDeckId() {
-    const params = new URLSearchParams(window.location.search);
-    const pDeck = params.get("deck");
-    if (pDeck) {
-      localStorage.setItem(this.KEY_ACTIVE_DECK, pDeck);
-      return pDeck;
-    }
     return localStorage.getItem(this.KEY_ACTIVE_DECK) || "deck_en_starter";
   }
 
   static setActiveDeckId(id) {
     localStorage.setItem(this.KEY_ACTIVE_DECK, id);
+  }
+
+  static getSelectedDeckIds() {
+    const raw = localStorage.getItem(this.KEY_SELECTED_DECKS);
+    if (!raw) {
+      const activeId = this.getActiveDeckId();
+      return activeId ? [activeId] : [];
+    }
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+      const activeId = this.getActiveDeckId();
+      return activeId ? [activeId] : [];
+    } catch (e) {
+      const activeId = this.getActiveDeckId();
+      return activeId ? [activeId] : [];
+    }
+  }
+
+  static setSelectedDeckIds(ids) {
+    if (!Array.isArray(ids) || ids.length === 0) {
+      const activeId = this.getActiveDeckId();
+      ids = activeId ? [activeId] : [];
+    }
+    localStorage.setItem(this.KEY_SELECTED_DECKS, JSON.stringify(ids));
+    if (ids.length > 0) {
+      this.setActiveDeckId(ids[0]);
+    }
   }
 }
 
@@ -235,31 +242,11 @@ class GamificationEngine {
   }
 
   loseHeart() {
-    if (appState.settings.unlimitedHearts) return true;
-
-    if (this.progress.hearts > 1) {
-      this.progress.hearts -= 1;
-      this.save();
-      this.renderStats();
-      audioManager.playHeartLost();
-      announceToScreenReader(I18n.t("heart_lost_msg", { hearts: this.progress.hearts }), "assertive");
-      return true;
-    } else {
-      this.progress.hearts = 0;
-      this.save();
-      this.renderStats();
-      audioManager.playHeartLost();
-      announceToScreenReader(I18n.t("no_hearts_left"), "assertive");
-      return false; // Out of hearts
-    }
+    return true; // Herzen komplett deaktiviert für stressfreies Lernen
   }
 
   refillHearts() {
-    this.progress.hearts = this.progress.maxHearts;
-    this.save();
-    this.renderStats();
-    audioManager.playSuccess();
-    announceToScreenReader("Herzen wieder voll aufgeladen (5 von 5).", "assertive");
+    return;
   }
 
   recordMatchPairSolved() {
@@ -306,19 +293,6 @@ class GamificationEngine {
 
     const xpSr = document.getElementById("sr-xp-text");
     if (xpSr) xpSr.textContent = I18n.t("xp_label", { count: this.progress.xp });
-
-    // Hearts
-    const heartsVal = document.getElementById("display-hearts-count");
-    const heartsSr = document.getElementById("sr-hearts-text");
-    if (heartsVal) {
-      if (appState.settings.unlimitedHearts) {
-        heartsVal.textContent = "∞";
-        if (heartsSr) heartsSr.textContent = I18n.t("hearts_unlimited");
-      } else {
-        heartsVal.textContent = this.progress.hearts;
-        if (heartsSr) heartsSr.textContent = I18n.t("hearts_label", { count: this.progress.hearts });
-      }
-    }
 
     // Level
     const levelText = document.getElementById("display-level-text");
@@ -477,6 +451,17 @@ class AudioManager {
 
     const pronounceText = expandVocabAbbreviations(clean);
 
+    // TalkBack sofort stummschalten / unterbrechen, damit die englische Aussprache ungestört hörbar ist
+    if (window.AndroidSyncBridge && typeof window.AndroidSyncBridge.interruptTalkBack === "function") {
+      try {
+        window.AndroidSyncBridge.interruptTalkBack();
+      } catch (e) {}
+    }
+    const srAnnounce = document.getElementById("sr-announcements");
+    if (srAnnounce) srAnnounce.textContent = "";
+    const srStatus = document.getElementById("sr-status");
+    if (srStatus) srStatus.textContent = "";
+
     // Stop current audio or speech
     if (this.currentAudioPlayer) {
       try { this.currentAudioPlayer.pause(); } catch (e) {}
@@ -615,11 +600,56 @@ class MascotManager {
 const appState = {
   decks: [],
   activeDeck: null,
+  selectedDeckIds: [],
   settings: StorageManager.getSettings(),
   currentGame: null,
   parsedImportData: null,
   gamification: null
 };
+
+function getSelectedDecks() {
+  if (!appState.decks || appState.decks.length === 0) return [];
+  if (!appState.selectedDeckIds || appState.selectedDeckIds.length === 0) {
+    return appState.activeDeck ? [appState.activeDeck] : [appState.decks[0]];
+  }
+  const matched = appState.decks.filter(d => appState.selectedDeckIds.includes(d.id));
+  if (matched.length === 0) {
+    return appState.activeDeck ? [appState.activeDeck] : [appState.decks[0]];
+  }
+  return matched;
+}
+
+function getActiveWords() {
+  const selectedDecks = getSelectedDecks();
+  const words = [];
+  selectedDecks.forEach(deck => {
+    if (deck && Array.isArray(deck.words)) {
+      deck.words.forEach(w => {
+        words.push({
+          ...w,
+          id: `${deck.id}__${w.id}`,
+          originalId: w.id,
+          deckId: deck.id,
+          deckTitle: deck.title,
+          lang: deck.lang || "en-US"
+        });
+      });
+    }
+  });
+  return words;
+}
+
+function getActiveTargetLang() {
+  const selectedDecks = getSelectedDecks();
+  if (selectedDecks.length === 1 && selectedDecks[0].lang) {
+    return selectedDecks[0].lang;
+  }
+  const langs = new Set(selectedDecks.map(d => d.lang || "en-US"));
+  if (langs.size === 1) {
+    return Array.from(langs)[0];
+  }
+  return (appState.activeDeck && appState.activeDeck.lang) || "en-US";
+}
 
 const audioManager = new AudioManager();
 
@@ -1106,16 +1136,7 @@ class BaseGame {
       audioManager.playSuccess();
       appState.gamification.addXP(10);
     } else {
-      const stillHasHearts = appState.gamification.loseHeart();
-      if (!stillHasHearts) {
-        // Out of hearts modal/redirect
-        setTimeout(() => {
-          banner.classList.add("hidden");
-          exitCurrentGame();
-          alert(I18n.t("no_hearts_left"));
-        }, 1200);
-        return;
-      }
+      audioManager.playError();
     }
 
     setTimeout(() => {
@@ -1259,7 +1280,7 @@ class MatchGame {
                       aria-label="${escapeHtml(item.target)}, Übersetzung ${idx + 1} von ${rightWords.length}">
                 ${escapeHtml(item.target)}
               </button>
-              ${createSpeakButtonHtml(item.target, this.lang)}
+              ${createSpeakButtonHtml(item.target, item.lang || this.lang)}
             </div>
           `).join("")}
         </div>
@@ -1293,7 +1314,9 @@ class MatchGame {
       this.selectedRight = { id: wordId, text, element: tile };
       announceToScreenReader(`Ausgewählt: ${text}.`, "polite");
       if (appState.settings.speechEnabled) {
-        audioManager.speak(text, this.lang);
+        const pair = this.currentPairs.find(p => p.id === wordId);
+        const speakLang = (pair && pair.lang) || this.lang;
+        audioManager.speak(text, speakLang);
       }
     }
 
@@ -1337,7 +1360,6 @@ class MatchGame {
         if (nextLeft) nextLeft.focus();
       }
     } else {
-      appState.gamification.loseHeart();
       announceToScreenReader(I18n.t("match_fail", { source: leftText, target: rightText }), "assertive");
 
       setTimeout(() => {
@@ -1420,7 +1442,7 @@ class QuizGame extends BaseGame {
         <p class="quiz-hint" id="quiz-question-desc">${I18n.t("quiz_question_prompt")}</p>
         <div style="text-align: center; margin-bottom: 12px;">
           <h2 class="quiz-word-prompt" id="quiz-target-word" style="margin-bottom: 8px;">${escapeHtml(currentWord.target)}</h2>
-          ${createSpeakButtonHtml(currentWord.target, this.lang)}
+          ${createSpeakButtonHtml(currentWord.target, currentWord.lang || this.lang)}
         </div>
         ${currentWord.note ? `<p class="quiz-hint">Hinweis: ${escapeHtml(currentWord.note)}</p>` : ""}
 
@@ -1440,7 +1462,7 @@ class QuizGame extends BaseGame {
     `;
 
     if (appState.settings.autoPronounce && appState.settings.speechEnabled) {
-      audioManager.speak(currentWord.target, this.lang);
+      audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
 
     const optionsText = options.map((opt, i) => `Taste ${i + 1}: ${opt.source}`).join(". ");
@@ -1480,7 +1502,7 @@ class QuizGame extends BaseGame {
     }
     if (e.key.toLowerCase() === "r") {
       const currentWord = this.words[this.currentIndex];
-      if (currentWord) audioManager.speak(currentWord.target, this.lang);
+      if (currentWord) audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
   }
 }
@@ -1521,7 +1543,8 @@ class TrueFalseGame extends BaseGame {
       source: currentWord.source,
       shownTarget: shownTarget,
       isActuallyTrue: isActuallyTrue,
-      correctTarget: currentWord.target
+      correctTarget: currentWord.target,
+      lang: currentWord.lang || this.lang
     };
 
     const container = document.getElementById("game-dynamic-content");
@@ -1533,7 +1556,7 @@ class TrueFalseGame extends BaseGame {
             <span>${escapeHtml(currentWord.source)}</span> = <strong>${escapeHtml(shownTarget)}</strong>
           </div>
           <div style="margin-top: 10px; display: flex; justify-content: center;">
-            ${createSpeakButtonHtml(shownTarget, this.lang)}
+            ${createSpeakButtonHtml(shownTarget, currentWord.lang || this.lang)}
           </div>
         </div>
 
@@ -1551,7 +1574,7 @@ class TrueFalseGame extends BaseGame {
     announceToScreenReader(`${currentWord.source} = ${shownTarget}. Richtig oder falsch?`, "polite");
 
     if (appState.settings.autoPronounce && appState.settings.speechEnabled) {
-      audioManager.speak(shownTarget, this.lang);
+      audioManager.speak(shownTarget, currentWord.lang || this.lang);
     }
 
     document.getElementById("btn-tf-true").addEventListener("click", () => this.handleDecision(true));
@@ -1590,7 +1613,7 @@ class TrueFalseGame extends BaseGame {
     } else if (["n", "2"].includes(key)) {
       document.getElementById("btn-tf-false")?.click();
     } else if (key === "r") {
-      audioManager.speak(this.currentQuestionData.shownTarget, this.lang);
+      audioManager.speak(this.currentQuestionData.shownTarget, this.currentQuestionData.lang || this.lang);
     }
   }
 }
@@ -1661,14 +1684,14 @@ class FlashcardsGame extends BaseGame {
       <div class="flashcard-side-tag">${I18n.t("flashcard_back_tag")}</div>
       <div class="flashcard-main-text">${escapeHtml(currentWord.target)}</div>
       <div style="margin-top: 10px; display: flex; justify-content: center;">
-        ${createSpeakButtonHtml(currentWord.target, this.lang)}
+        ${createSpeakButtonHtml(currentWord.target, currentWord.lang || this.lang)}
       </div>
       ${currentWord.note ? `<div class="flashcard-sub-text">Hinweis: ${escapeHtml(currentWord.note)}</div>` : ""}
     `;
     actions.classList.remove("hidden");
 
     if (appState.settings.speechEnabled) {
-      audioManager.speak(currentWord.target, this.lang);
+      audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
     announceToScreenReader(`Aufgedeckt: ${currentWord.target}. Taste 1 für Noch üben, Taste 2 für Gewusst.`, "assertive");
 
@@ -1684,7 +1707,6 @@ class FlashcardsGame extends BaseGame {
       appState.gamification.addXP(10);
     } else {
       audioManager.playError();
-      appState.gamification.loseHeart();
     }
     this.currentIndex++;
     this.nextQuestion();
@@ -1702,7 +1724,7 @@ class FlashcardsGame extends BaseGame {
       document.getElementById("btn-fc-success")?.click();
     } else if (e.key.toLowerCase() === "r") {
       const currentWord = this.words[this.currentIndex];
-      if (currentWord) audioManager.speak(currentWord.target, this.lang);
+      if (currentWord) audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
   }
 }
@@ -1853,7 +1875,7 @@ class ScrambleGame extends BaseGame {
       this.checkAnswer();
     } else if (e.key.toLowerCase() === "r") {
       const currentWord = this.words[this.currentIndex];
-      if (currentWord) audioManager.speak(currentWord.target, this.lang);
+      if (currentWord) audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     } else if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(e.key)) {
       const btn = document.querySelector(`.scramble-chip-btn[data-key="${e.key}"]`);
       if (btn) btn.click();
@@ -1916,18 +1938,18 @@ class AudioQuizGame extends BaseGame {
       </div>
     `;
 
-    // Speak English word automatically
+    // Kurze Ankündigung für Screenreader, dann TalkBack für die englische Aussprache pausieren
+    announceToScreenReader(`Aufgabe ${this.currentIndex + 1} von ${this.totalQuestions}. Höre das Wort an:`, "polite");
+
+    // Speak word automatically
     if (appState.settings.speechEnabled) {
       setTimeout(() => {
-        audioManager.speak(currentWord.target, this.lang);
+        audioManager.speak(currentWord.target, currentWord.lang || this.lang);
       }, 300);
     }
 
-    const optionsText = options.map((opt, i) => `Taste ${i + 1}: ${opt.source}`).join(". ");
-    announceToScreenReader(`Aufgabe ${this.currentIndex + 1} von ${this.totalQuestions}: Höre das englische Wort an. Optionen: ${optionsText}`, "polite");
-
     document.getElementById("btn-audio-play-word")?.addEventListener("click", () => {
-      audioManager.speak(currentWord.target, this.lang);
+      audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     });
 
     container.querySelectorAll(".quiz-option-btn").forEach(btn => {
@@ -1964,7 +1986,7 @@ class AudioQuizGame extends BaseGame {
     }
     if (e.key.toLowerCase() === "r") {
       const currentWord = this.words[this.currentIndex];
-      if (currentWord) audioManager.speak(currentWord.target, this.lang);
+      if (currentWord) audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
   }
 }
@@ -2031,14 +2053,14 @@ class TypingGame extends BaseGame {
     announceToScreenReader(`Aufgabe ${this.currentIndex + 1} von ${this.totalQuestions}: Tippe die Übersetzung für "${currentWord.source}".`, "polite");
 
     if (appState.settings.autoPronounce && appState.settings.speechEnabled) {
-      audioManager.speak(currentWord.target, this.lang);
+      audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
 
     const input = document.getElementById("input-typing-word");
     if (input) input.focus();
 
     document.getElementById("btn-typing-hear")?.addEventListener("click", () => {
-      audioManager.speak(currentWord.target, this.lang);
+      audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     });
 
     document.getElementById("form-typing-answer").addEventListener("submit", (e) => {
@@ -2077,7 +2099,7 @@ class TypingGame extends BaseGame {
 
   revealAnswer() {
     const currentWord = this.words[this.currentIndex];
-    audioManager.speak(currentWord.target, this.lang);
+    audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     this.showFeedback(false, `Lösung aufgedeckt: "${currentWord.source}" = "${currentWord.target}".`, () => {
       this.currentIndex++;
       this.nextQuestion();
@@ -2087,7 +2109,7 @@ class TypingGame extends BaseGame {
   handleKey(e) {
     if (e.key.toLowerCase() === "r" && document.activeElement?.id !== "input-typing-word") {
       const currentWord = this.words[this.currentIndex];
-      if (currentWord) audioManager.speak(currentWord.target, this.lang);
+      if (currentWord) audioManager.speak(currentWord.target, currentWord.lang || this.lang);
     }
   }
 }
@@ -2114,6 +2136,11 @@ function initApp() {
 
   const savedDeckId = StorageManager.getActiveDeckId();
   appState.activeDeck = appState.decks.find(d => d.id === savedDeckId) || appState.decks[0];
+  appState.selectedDeckIds = StorageManager.getSelectedDeckIds();
+  appState.selectedDeckIds = appState.selectedDeckIds.filter(id => appState.decks.some(d => d.id === id));
+  if (appState.selectedDeckIds.length === 0 && appState.activeDeck) {
+    appState.selectedDeckIds = [appState.activeDeck.id];
+  }
   if (appState.activeDeck && normalizeDeckIfInverted(appState.activeDeck)) {
     StorageManager.saveDecks(appState.decks);
   }
@@ -2239,73 +2266,196 @@ function applySettingsToUI() {
 
 function populateDeckSelect() {
   const selects = document.querySelectorAll(".deck-select-sync");
+  const selectedDecks = getSelectedDecks();
+  const totalAllWords = appState.decks.reduce((sum, d) => sum + (d.words ? d.words.length : 0), 0);
+  const totalSelectedWords = selectedDecks.reduce((sum, d) => sum + (d.words ? d.words.length : 0), 0);
+  const isAllSelected = appState.decks.length > 1 && selectedDecks.length === appState.decks.length;
+  const isMultiCustom = selectedDecks.length > 1 && !isAllSelected;
+
   selects.forEach(select => {
     select.innerHTML = "";
+
+    // 1. Option: Alle Listen kombinieren
+    if (appState.decks.length > 1) {
+      const optAll = document.createElement("option");
+      optAll.value = "__all__";
+      optAll.textContent = `🌟 Alle Listen kombinieren (${appState.decks.length} Listen, ${totalAllWords} Vokabeln)`;
+      if (isAllSelected) optAll.selected = true;
+      select.appendChild(optAll);
+    }
+
+    // 2. Option: Falls benutzerdefinierte Mehrfachauswahl aktiv ist
+    if (isMultiCustom) {
+      const optMulti = document.createElement("option");
+      optMulti.value = "__multi__";
+      optMulti.textContent = `🗂️ ${selectedDecks.length} Listen ausgewählt (${totalSelectedWords} Vokabeln)`;
+      optMulti.selected = true;
+      select.appendChild(optMulti);
+    }
+
+    // 3. Option: Listen-Auswahl-Dialog öffnen
+    const optPicker = document.createElement("option");
+    optPicker.value = "__open_picker__";
+    optPicker.textContent = `⚙️ Listen auswählen (Mehrfachauswahl)...`;
+    select.appendChild(optPicker);
+
+    // 4. Einzelne Listen in eine optgroup
+    const group = document.createElement("optgroup");
+    group.label = "Einzelne Vokabellisten:";
     appState.decks.forEach(deck => {
       const opt = document.createElement("option");
       opt.value = deck.id;
-      opt.textContent = `${deck.title} (${deck.words.length} Vokabeln)`;
-      if (deck.id === appState.activeDeck.id) opt.selected = true;
-      select.appendChild(opt);
+      opt.textContent = `${deck.title} (${deck.words ? deck.words.length : 0} Vokabeln)`;
+      if (!isAllSelected && !isMultiCustom && deck.id === appState.activeDeck?.id) {
+        opt.selected = true;
+      }
+      group.appendChild(opt);
     });
+    select.appendChild(group);
   });
 
   updateDeckStatsBadge();
 }
 
 function updateDeckStatsBadge() {
+  const selectedDecks = getSelectedDecks();
+  const activeWords = getActiveWords();
   const badges = document.querySelectorAll(".deck-stats-badge-sync");
   badges.forEach(b => {
-    if (appState.activeDeck) {
-      b.textContent = I18n.t("words_ready", { count: appState.activeDeck.words.length });
+    if (selectedDecks.length > 1) {
+      b.textContent = `${selectedDecks.length} Listen aktiv (${activeWords.length} Vokabeln)`;
+    } else if (appState.activeDeck) {
+      b.textContent = I18n.t("words_ready", { count: appState.activeDeck.words ? appState.activeDeck.words.length : 0 });
     }
   });
 
   const unitTitle = document.getElementById("unit-title-text");
-  if (unitTitle && appState.activeDeck) {
-    unitTitle.textContent = `${appState.activeDeck.title}`;
+  if (unitTitle) {
+    if (selectedDecks.length > 1) {
+      unitTitle.textContent = `${selectedDecks.length} Listen kombiniert (${activeWords.length} Vokabeln)`;
+    } else if (appState.activeDeck) {
+      unitTitle.textContent = `${appState.activeDeck.title}`;
+    }
+  }
+}
+
+function openMultiDeckModal() {
+  const modal = document.getElementById("modal-multi-deck-container");
+  const listContainer = document.getElementById("multi-deck-list-container");
+  if (!modal || !listContainer) return;
+
+  listContainer.innerHTML = "";
+  const currentSelectedSet = new Set(appState.selectedDeckIds || []);
+
+  appState.decks.forEach(deck => {
+    const isChecked = currentSelectedSet.has(deck.id);
+    const card = document.createElement("label");
+    card.className = "deck-checkbox-card";
+    card.htmlFor = `chk-deck-${deck.id}`;
+    card.innerHTML = `
+      <input type="checkbox" id="chk-deck-${deck.id}" class="deck-multi-checkbox" value="${deck.id}" ${isChecked ? "checked" : ""}>
+      <div class="deck-checkbox-info">
+        <span class="deck-checkbox-title">${escapeHtml(deck.title)}</span>
+        <span class="deck-checkbox-sub">${deck.words ? deck.words.length : 0} Vokabeln &bull; ${escapeHtml(deck.lang || "en-US")}</span>
+      </div>
+    `;
+    listContainer.appendChild(card);
+  });
+
+  const updateModalSummary = () => {
+    const checked = listContainer.querySelectorAll(".deck-multi-checkbox:checked");
+    const countSpan = document.getElementById("multi-deck-selected-count");
+    const wordsSpan = document.getElementById("multi-deck-selected-words");
+    let totalW = 0;
+    checked.forEach(chk => {
+      const d = appState.decks.find(deck => deck.id === chk.value);
+      if (d && d.words) totalW += d.words.length;
+    });
+    if (countSpan) countSpan.textContent = `${checked.length} von ${appState.decks.length} Listen`;
+    if (wordsSpan) wordsSpan.textContent = `${totalW} Vokabeln`;
+  };
+
+  listContainer.querySelectorAll(".deck-multi-checkbox").forEach(chk => {
+    chk.addEventListener("change", updateModalSummary);
+  });
+
+  updateModalSummary();
+  modal.classList.remove("hidden");
+  
+  const firstChk = listContainer.querySelector(".deck-multi-checkbox");
+  if (firstChk) firstChk.focus();
+  announceToScreenReader("Dialog zur Mehrfachauswahl von Vokabellisten geöffnet.", "polite");
+}
+
+function closeMultiDeckModal() {
+  const modal = document.getElementById("modal-multi-deck-container");
+  if (modal) {
+    modal.classList.add("hidden");
+    announceToScreenReader("Dialog geschlossen.", "polite");
   }
 }
 
 function renderVocabTable(filterQuery = "") {
   const tbody = document.getElementById("vocab-table-body");
   const title = document.getElementById("current-deck-title");
-  if (!tbody || !appState.activeDeck) return;
+  if (!tbody) return;
 
-  if (title) title.textContent = `Vokabeln der Liste: ${appState.activeDeck.title}`;
+  const selectedDecks = getSelectedDecks();
+  const isMulti = selectedDecks.length > 1;
+  const wordsToDisplay = isMulti
+    ? getActiveWords()
+    : (appState.activeDeck && appState.activeDeck.words ? appState.activeDeck.words.map(w => ({
+        ...w,
+        originalId: w.id,
+        deckId: appState.activeDeck.id,
+        deckTitle: appState.activeDeck.title,
+        lang: appState.activeDeck.lang || "en-US"
+      })) : []);
+
+  if (title) {
+    if (isMulti) {
+      title.textContent = `Vokabeln (${selectedDecks.length} Listen aktiv: ${wordsToDisplay.length} Vokabeln)`;
+    } else if (appState.activeDeck) {
+      title.textContent = `Vokabeln der Liste: ${appState.activeDeck.title}`;
+    }
+  }
 
   tbody.innerHTML = "";
   const query = (filterQuery || "").trim().toLowerCase();
   const filteredWords = query
-    ? appState.activeDeck.words.filter(w =>
+    ? wordsToDisplay.filter(w =>
         w.source.toLowerCase().includes(query) ||
         w.target.toLowerCase().includes(query) ||
-        (w.note && w.note.toLowerCase().includes(query))
+        (w.note && w.note.toLowerCase().includes(query)) ||
+        (w.deckTitle && w.deckTitle.toLowerCase().includes(query))
       )
-    : appState.activeDeck.words;
+    : wordsToDisplay;
 
   if (filteredWords.length === 0) {
     tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 2rem;">${
-      query ? 'Keine Vokabeln gefunden für "' + escapeHtml(query) + '".' : 'Noch keine Vokabeln in dieser Liste vorhanden.'
+      query ? 'Keine Vokabeln gefunden für "' + escapeHtml(query) + '".' : 'Noch keine Vokabeln in der Auswahl vorhanden.'
     }</td></tr>`;
     return;
   }
 
   filteredWords.forEach((w) => {
     const tr = document.createElement("tr");
-    const deckLang = (appState.activeDeck && appState.activeDeck.lang) || "en-US";
+    const wordLang = w.lang || "en-US";
     tr.innerHTML = `
       <td><strong>${escapeHtml(w.source)}</strong></td>
       <td>
         <div class="vocab-word-flex">
           <span class="vocab-target-text">${escapeHtml(w.target)}</span>
-          ${createSpeakButtonHtml(w.target, deckLang)}
+          ${createSpeakButtonHtml(w.target, wordLang)}
         </div>
       </td>
-      <td>${escapeHtml(w.note || "-")}</td>
+      <td>
+        ${escapeHtml(w.note || "-")}
+        ${isMulti ? `<br><small style="color: var(--primary, #1cb0f6); font-weight: 600;">📚 ${escapeHtml(w.deckTitle || "")}</small>` : ""}
+      </td>
       <td><span class="badge-stats">Box ${w.box || 1}</span></td>
       <td>
-        <button class="btn btn-secondary btn-delete-word" data-id="${w.id}" aria-label="Vokabel ${escapeHtml(w.source)} löschen">
+        <button class="btn btn-secondary btn-delete-word" data-id="${w.originalId}" data-deck-id="${w.deckId}" aria-label="Vokabel ${escapeHtml(w.source)} löschen">
           🗑️ Löschen
         </button>
       </td>
@@ -2315,12 +2465,16 @@ function renderVocabTable(filterQuery = "") {
 
   tbody.querySelectorAll(".btn-delete-word").forEach(btn => {
     btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      appState.activeDeck.words = appState.activeDeck.words.filter(w => w.id !== id);
-      StorageManager.saveDecks(appState.decks);
-      renderVocabTable();
-      populateDeckSelect();
-      announceToScreenReader("Vokabel gelöscht.", "assertive");
+      const origId = btn.dataset.id;
+      const deckId = btn.dataset.deckId;
+      const targetDeck = appState.decks.find(d => d.id === deckId);
+      if (targetDeck && targetDeck.words) {
+        targetDeck.words = targetDeck.words.filter(w => w.id !== origId);
+        StorageManager.saveDecks(appState.decks);
+        renderVocabTable();
+        populateDeckSelect();
+        announceToScreenReader("Vokabel gelöscht.", "assertive");
+      }
     });
   });
 }
@@ -2335,8 +2489,9 @@ function escapeHtml(str) {
 // GAME START & LIFECYCLE
 // ------------------------------------------
 function startGame(mode) {
-  if (!appState.activeDeck || appState.activeDeck.words.length === 0) {
-    alert("Die aktuelle Vokabelliste ist leer! Bitte importiere Vokabeln.");
+  const activeWords = getActiveWords();
+  if (activeWords.length === 0) {
+    alert("Die ausgewählten Vokabellisten enthalten keine Vokabeln! Bitte wähle eine Liste mit Vokabeln oder importiere neue.");
     return;
   }
 
@@ -2351,8 +2506,8 @@ function startGame(mode) {
   document.getElementById("game-arena").classList.remove("hidden");
 
   // Shuffle words freshly on each game start so repetitions have different order!
-  const words = [...appState.activeDeck.words].sort(() => Math.random() - 0.5);
-  const lang = appState.activeDeck.lang || "en-US";
+  const words = [...activeWords].sort(() => Math.random() - 0.5);
+  const lang = getActiveTargetLang();
 
   switch (mode) {
     case "match":
@@ -2574,42 +2729,114 @@ function setupEventListeners() {
   document.getElementById("btn-audio-repeat")?.addEventListener("click", () => {
     if (appState.currentGame && appState.currentGame.words) {
       const w = appState.currentGame.words[appState.currentGame.currentIndex];
-      if (w) audioManager.speak(w.target, appState.currentGame.lang);
+      if (w) audioManager.speak(w.target, w.lang || appState.currentGame.lang);
     }
   });
 
   // Active Deck Selection Change (Synchronized across all dropdowns)
   document.querySelectorAll(".deck-select-sync").forEach(select => {
     select.addEventListener("change", (e) => {
-      const selected = appState.decks.find(d => d.id === e.target.value);
-      if (selected) {
-        if (normalizeDeckIfInverted(selected)) {
-          StorageManager.saveDecks(appState.decks);
-        }
-        appState.activeDeck = selected;
-        StorageManager.setActiveDeckId(selected.id);
+      const val = e.target.value;
+      if (val === "__all__") {
+        appState.selectedDeckIds = appState.decks.map(d => d.id);
+        StorageManager.setSelectedDeckIds(appState.selectedDeckIds);
         populateDeckSelect();
         renderVocabTable();
-        announceToScreenReader(`Aktive Liste: ${selected.title}`, "assertive");
+        const activeWords = getActiveWords();
+        announceToScreenReader(`Alle ${appState.decks.length} Listen mit insgesamt ${activeWords.length} Vokabeln zum Lernen ausgewählt.`, "assertive");
+      } else if (val === "__open_picker__" || val === "__multi__") {
+        openMultiDeckModal();
+        populateDeckSelect();
+      } else {
+        const selected = appState.decks.find(d => d.id === val);
+        if (selected) {
+          if (normalizeDeckIfInverted(selected)) {
+            StorageManager.saveDecks(appState.decks);
+          }
+          appState.activeDeck = selected;
+          appState.selectedDeckIds = [selected.id];
+          StorageManager.setActiveDeckId(selected.id);
+          StorageManager.setSelectedDeckIds([selected.id]);
+          populateDeckSelect();
+          renderVocabTable();
+          announceToScreenReader(`Aktive Liste: ${selected.title}`, "assertive");
+        }
       }
     });
   });
 
+  // Multi-Deck Modal Trigger Buttons
+  document.getElementById("btn-open-multi-deck")?.addEventListener("click", openMultiDeckModal);
+  document.getElementById("btn-vocab-multi-deck")?.addEventListener("click", openMultiDeckModal);
+
+  // Multi-Deck Modal Actions
+  document.getElementById("btn-close-multi-deck-modal")?.addEventListener("click", closeMultiDeckModal);
+  document.getElementById("btn-modal-multi-cancel")?.addEventListener("click", closeMultiDeckModal);
+
+  document.getElementById("btn-multi-select-all")?.addEventListener("click", () => {
+    document.querySelectorAll("#multi-deck-list-container .deck-multi-checkbox").forEach(chk => {
+      chk.checked = true;
+    });
+    const firstChk = document.querySelector("#multi-deck-list-container .deck-multi-checkbox");
+    if (firstChk) firstChk.dispatchEvent(new Event("change"));
+    announceToScreenReader("Alle Listen ausgewählt.", "polite");
+  });
+
+  document.getElementById("btn-multi-deselect-all")?.addEventListener("click", () => {
+    document.querySelectorAll("#multi-deck-list-container .deck-multi-checkbox").forEach(chk => {
+      chk.checked = false;
+    });
+    const firstChk = document.querySelector("#multi-deck-list-container .deck-multi-checkbox");
+    if (firstChk) firstChk.dispatchEvent(new Event("change"));
+    announceToScreenReader("Auswahl aufgehoben.", "polite");
+  });
+
+  document.getElementById("btn-modal-multi-apply")?.addEventListener("click", () => {
+    const checked = Array.from(document.querySelectorAll("#multi-deck-list-container .deck-multi-checkbox:checked"))
+      .map(chk => chk.value);
+    
+    if (checked.length === 0) {
+      alert("Bitte wähle mindestens eine Vokabelliste aus!");
+      return;
+    }
+
+    appState.selectedDeckIds = checked;
+    const primaryDeck = appState.decks.find(d => d.id === checked[0]) || appState.decks[0];
+    appState.activeDeck = primaryDeck;
+    StorageManager.setSelectedDeckIds(checked);
+    StorageManager.setActiveDeckId(primaryDeck.id);
+
+    populateDeckSelect();
+    renderVocabTable();
+    closeMultiDeckModal();
+
+    const activeWords = getActiveWords();
+    announceToScreenReader(`${checked.length} Vokabellisten mit insgesamt ${activeWords.length} Vokabeln aktiviert.`, "assertive");
+    audioManager.playSuccess();
+  });
+
   // Manual Column Swap (Deutsch ↔ Fremdsprache) in Reiter 3
   document.getElementById("btn-swap-deck-cols")?.addEventListener("click", () => {
-    if (!appState.activeDeck || !appState.activeDeck.words || appState.activeDeck.words.length === 0) {
+    const selectedDecks = getSelectedDecks();
+    const words = getActiveWords();
+    if (words.length === 0) {
       alert("Keine Vokabeln zum Vertauschen vorhanden.");
       return;
     }
-    appState.activeDeck.words.forEach(w => {
-      const temp = w.source;
-      w.source = w.target;
-      w.target = temp;
+    selectedDecks.forEach(deck => {
+      if (deck.words) {
+        deck.words.forEach(w => {
+          const temp = w.source;
+          w.source = w.target;
+          w.target = temp;
+        });
+      }
     });
     StorageManager.saveDecks(appState.decks);
     renderVocabTable();
     audioManager.playSuccess();
-    announceToScreenReader("Spalten erfolgreich vertauscht (Deutsch ↔ Fremdsprache).", "assertive");
+    const countMsg = selectedDecks.length > 1 ? `in allen ${selectedDecks.length} ausgewählten Listen` : "in der aktiven Liste";
+    announceToScreenReader(`Spalten erfolgreich ${countMsg} vertauscht (Deutsch ↔ Fremdsprache).`, "assertive");
   });
 
   // Vocab Search Filter
@@ -3059,24 +3286,27 @@ function exportDeckToExcel() {
     alert("Excel-Export nicht bereit.");
     return;
   }
-  const deck = appState.activeDeck;
-  if (!deck || deck.words.length === 0) {
-    alert("Die Liste enthält keine Vokabeln zum Exportieren.");
+  const selectedDecks = getSelectedDecks();
+  const words = getActiveWords();
+  if (words.length === 0) {
+    alert("Die ausgewählten Listen enthalten keine Vokabeln zum Exportieren.");
     return;
   }
 
+  const isMulti = selectedDecks.length > 1;
   const exportRows = [
-    ["Begriff / Sprache 1", "Übersetzung / Sprache 2", "Hinweis", "Lernstufe (Box)"],
-    ...deck.words.map(w => [w.source, w.target, w.note || "", w.box || 1])
+    ["Begriff / Sprache 1", "Übersetzung / Sprache 2", "Hinweis", "Liste / Thema", "Lernstufe (Box)"],
+    ...words.map(w => [w.source, w.target, w.note || "", w.deckTitle || "", w.box || 1])
   ];
 
   const ws = XLSX.utils.aoa_to_sheet(exportRows);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Vokabeln");
 
-  const safeFilename = `${deck.title.replace(/[^a-z0-9_-]/gi, "_")}.xlsx`;
+  const safeTitle = isMulti ? `${selectedDecks.length}_Listen_kombiniert` : (appState.activeDeck ? appState.activeDeck.title : "Vokabelliste");
+  const safeFilename = `${safeTitle.replace(/[^a-z0-9_-]/gi, "_")}.xlsx`;
   XLSX.writeFile(wb, safeFilename);
-  announceToScreenReader(`Liste als "${safeFilename}" exportiert.`, "polite");
+  announceToScreenReader(`Vokabeln als "${safeFilename}" exportiert.`, "polite");
 }
 
 // ------------------------------------------
