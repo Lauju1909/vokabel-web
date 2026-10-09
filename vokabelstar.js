@@ -2314,6 +2314,19 @@ function populateDeckSelect() {
     select.appendChild(group);
   });
 
+  const addWordDeckSelect = document.getElementById("select-add-word-deck");
+  if (addWordDeckSelect) {
+    const currentVal = addWordDeckSelect.value || appState.activeDeck?.id;
+    addWordDeckSelect.innerHTML = "";
+    appState.decks.forEach(deck => {
+      const opt = document.createElement("option");
+      opt.value = deck.id;
+      opt.textContent = `${deck.title} (${deck.words ? deck.words.length : 0} Vokabeln)`;
+      if (deck.id === currentVal) opt.selected = true;
+      addWordDeckSelect.appendChild(opt);
+    });
+  }
+
   updateDeckStatsBadge();
 }
 
@@ -2339,7 +2352,34 @@ function updateDeckStatsBadge() {
   }
 }
 
+let lastFocusedModalElement = null;
+
+function openCreateDeckModal() {
+  lastFocusedModalElement = document.activeElement;
+  const modal = document.getElementById("modal-container");
+  if (!modal) return;
+  modal.classList.remove("hidden");
+  const input = document.getElementById("modal-input-deck-name");
+  if (input) {
+    input.value = "";
+    input.focus();
+  }
+  announceToScreenReader("Dialog zum Erstellen einer neuen Vokabelliste geöffnet.", "polite");
+}
+
+function closeCreateDeckModal() {
+  const modal = document.getElementById("modal-container");
+  if (modal) {
+    modal.classList.add("hidden");
+    announceToScreenReader("Dialog geschlossen.", "polite");
+    if (lastFocusedModalElement && typeof lastFocusedModalElement.focus === "function") {
+      lastFocusedModalElement.focus();
+    }
+  }
+}
+
 function openMultiDeckModal() {
+  lastFocusedModalElement = document.activeElement;
   const modal = document.getElementById("modal-multi-deck-container");
   const listContainer = document.getElementById("multi-deck-list-container");
   if (!modal || !listContainer) return;
@@ -2392,6 +2432,9 @@ function closeMultiDeckModal() {
   if (modal) {
     modal.classList.add("hidden");
     announceToScreenReader("Dialog geschlossen.", "polite");
+    if (lastFocusedModalElement && typeof lastFocusedModalElement.focus === "function") {
+      lastFocusedModalElement.focus();
+    }
   }
 }
 
@@ -2854,7 +2897,18 @@ function setupEventListeners() {
 
     if (!source || !target) return;
 
-    appState.activeDeck.words.push({
+    const targetDeckSelect = document.getElementById("select-add-word-deck");
+    let targetDeck = appState.activeDeck;
+    if (targetDeckSelect && targetDeckSelect.value) {
+      const found = appState.decks.find(d => d.id === targetDeckSelect.value);
+      if (found) targetDeck = found;
+    }
+    if (!targetDeck) {
+      targetDeck = appState.decks[0];
+    }
+    if (!targetDeck.words) targetDeck.words = [];
+
+    targetDeck.words.push({
       id: "w_" + Date.now(),
       source,
       target,
@@ -2865,27 +2919,22 @@ function setupEventListeners() {
     StorageManager.saveDecks(appState.decks);
     renderVocabTable();
     populateDeckSelect();
+    updateDuolingoPathStats();
 
     document.getElementById("input-word-source").value = "";
     document.getElementById("input-word-target").value = "";
     document.getElementById("input-word-note").value = "";
+    if (targetDeckSelect) targetDeckSelect.value = targetDeck.id;
     document.getElementById("input-word-source").focus();
 
     audioManager.playSuccess();
-    announceToScreenReader(`Vokabel "${source}" hinzugefügt!`, "assertive");
+    announceToScreenReader(`Vokabel "${source}" zur Liste "${targetDeck.title}" hinzugefügt!`, "assertive");
   });
 
   // Create Deck Modal
-  document.getElementById("btn-create-deck")?.addEventListener("click", () => {
-    document.getElementById("modal-container").classList.remove("hidden");
-    document.getElementById("modal-input-deck-name").focus();
-  });
-  document.getElementById("btn-close-modal")?.addEventListener("click", () => {
-    document.getElementById("modal-container").classList.add("hidden");
-  });
-  document.getElementById("btn-modal-cancel")?.addEventListener("click", () => {
-    document.getElementById("modal-container").classList.add("hidden");
-  });
+  document.getElementById("btn-create-deck")?.addEventListener("click", openCreateDeckModal);
+  document.getElementById("btn-close-modal")?.addEventListener("click", closeCreateDeckModal);
+  document.getElementById("btn-modal-cancel")?.addEventListener("click", closeCreateDeckModal);
   document.getElementById("btn-modal-save")?.addEventListener("click", () => {
     const title = document.getElementById("modal-input-deck-name").value.trim() || "Neue Vokabelliste";
     const lang = document.getElementById("modal-select-lang").value;
@@ -2897,14 +2946,63 @@ function setupEventListeners() {
     };
     appState.decks.push(newDeck);
     appState.activeDeck = newDeck;
+    appState.selectedDeckIds = [newDeck.id];
     StorageManager.saveDecks(appState.decks);
     StorageManager.setActiveDeckId(newDeck.id);
+    StorageManager.setSelectedDeckIds([newDeck.id]);
 
-    document.getElementById("modal-container").classList.add("hidden");
+    closeCreateDeckModal();
     populateDeckSelect();
     renderVocabTable();
+    updateDuolingoPathStats();
     announceToScreenReader(`Neue Liste "${title}" erstellt.`, "assertive");
   });
+
+  // Delete Deck Action
+  document.getElementById("btn-delete-deck")?.addEventListener("click", () => {
+    if (appState.decks.length <= 1) {
+      alert("Es muss mindestens eine Vokabelliste vorhanden bleiben. Die letzte Liste kann nicht gelöscht werden.");
+      return;
+    }
+    const deckToDelete = appState.activeDeck;
+    if (!deckToDelete) return;
+
+    const wordCount = deckToDelete.words ? deckToDelete.words.length : 0;
+    if (!confirm(`Möchtest du die Vokabelliste "${deckToDelete.title}" mit ${wordCount} Vokabeln wirklich unwiderruflich löschen?`)) {
+      return;
+    }
+
+    appState.decks = appState.decks.filter(d => d.id !== deckToDelete.id);
+    appState.selectedDeckIds = (appState.selectedDeckIds || []).filter(id => id !== deckToDelete.id);
+    if (appState.selectedDeckIds.length === 0) {
+      appState.selectedDeckIds = [appState.decks[0].id];
+    }
+    appState.activeDeck = appState.decks.find(d => d.id === appState.selectedDeckIds[0]) || appState.decks[0];
+
+    StorageManager.saveDecks(appState.decks);
+    StorageManager.setActiveDeckId(appState.activeDeck.id);
+    StorageManager.setSelectedDeckIds(appState.selectedDeckIds);
+
+    populateDeckSelect();
+    renderVocabTable();
+    updateDuolingoPathStats();
+    audioManager.playSuccess();
+    announceToScreenReader(`Liste "${deckToDelete.title}" gelöscht. Aktive Liste ist nun "${appState.activeDeck.title}".`, "assertive");
+  });
+
+  // Modal Backdrop Click Handlers
+  const modalCreateEl = document.getElementById("modal-container");
+  if (modalCreateEl) {
+    modalCreateEl.addEventListener("click", (e) => {
+      if (e.target === modalCreateEl) closeCreateDeckModal();
+    });
+  }
+  const modalMultiEl = document.getElementById("modal-multi-deck-container");
+  if (modalMultiEl) {
+    modalMultiEl.addEventListener("click", (e) => {
+      if (e.target === modalMultiEl) closeMultiDeckModal();
+    });
+  }
 
   // Export Deck as Excel
   document.getElementById("btn-export-deck-xlsx")?.addEventListener("click", exportDeckToExcel);
@@ -2958,8 +3056,12 @@ function setupEventListeners() {
       StorageManager.saveDecks(DEFAULT_DECKS);
       appState.decks = DEFAULT_DECKS;
       appState.activeDeck = DEFAULT_DECKS[0];
+      appState.selectedDeckIds = [DEFAULT_DECKS[0].id];
+      StorageManager.setActiveDeckId(DEFAULT_DECKS[0].id);
+      StorageManager.setSelectedDeckIds([DEFAULT_DECKS[0].id]);
       populateDeckSelect();
       renderVocabTable();
+      updateDuolingoPathStats();
       audioManager.playSuccess();
       announceToScreenReader("Standard-Sets wiederhergestellt.", "assertive");
     }
@@ -3084,9 +3186,14 @@ function handleGlobalShortcuts(e) {
 
   // Escape: Exit Game or Modal
   if (e.key === "Escape") {
-    const modal = document.getElementById("modal-container");
-    if (modal && !modal.classList.contains("hidden")) {
-      modal.classList.add("hidden");
+    const modalMulti = document.getElementById("modal-multi-deck-container");
+    if (modalMulti && !modalMulti.classList.contains("hidden")) {
+      closeMultiDeckModal();
+      return;
+    }
+    const modalCreate = document.getElementById("modal-container");
+    if (modalCreate && !modalCreate.classList.contains("hidden")) {
+      closeCreateDeckModal();
       return;
     }
     if (appState.currentGame) {
@@ -3260,7 +3367,9 @@ function executeImport() {
     };
     appState.decks.push(newDeck);
     appState.activeDeck = newDeck;
+    appState.selectedDeckIds = [newDeck.id];
     StorageManager.setActiveDeckId(newDeck.id);
+    StorageManager.setSelectedDeckIds([newDeck.id]);
   } else {
     appState.activeDeck.words.push(...newWords);
   }
@@ -3268,6 +3377,7 @@ function executeImport() {
   StorageManager.saveDecks(appState.decks);
   populateDeckSelect();
   renderVocabTable();
+  updateDuolingoPathStats();
 
   document.getElementById("import-preview-card").classList.add("hidden");
   appState.parsedImportData = null;
